@@ -1,0 +1,25 @@
+{
+  "name": "fun-hub",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "PORT=5000 node ./bin/www",
+    "mongod": "mongod --dbpath=./data"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.8.1",
+    "node-sass-middleware": "0.9.8",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "cheerio": "^0.22.0",
+    "mongoose": "^4.9.4",
+    "superagent": "^3.5.2",
+    "superagent-jsonp": "^0.1.1"
+  }
+}

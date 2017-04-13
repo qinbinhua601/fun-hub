@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  #app
+    p {{ msg }}
+    ul.tv-list
+      li(v-for="item in list")
+        b-card.mb-2(
+          v-for="item in list",
+          :title="item.title",
+          :img="item.pic",
+          :key="item.aid"
+        ) {{ item.desc }}
+    b-button(@click="getListData(1)") get list 1
+    b-button(@click="getListData(2)") get list 2
+  script(src="/js/index.js")
