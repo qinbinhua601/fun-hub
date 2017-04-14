@@ -22,12 +22,19 @@ body {
         background-clip: padding-box;
         position: relative;
         z-index: -1; }
-      .tv-list .card .card-image span.glyphicon-star-empty, .tv-list .card .card-image span.glyphicon-star {
+      .tv-list .card .card-image span.glyphicon-heart-empty, .tv-list .card .card-image span.glyphicon-heart {
         position: absolute;
         top: 10px;
         left: 10px;
-        color: gold;
-        font-size: 2em; }
+        font-size: 2em;
+        cursor: pointer;
+        color: lightgray; }
+      .tv-list .card .card-image span.glyphicon-heart {
+        color: #e60b97; }
+      .tv-list .card .card-image span.glyphicon-heart-empty:hover {
+        color: #e60b97; }
+        .tv-list .card .card-image span.glyphicon-heart-empty:hover:before {
+          content: "\e005"; }
     .tv-list .card .card-content {
       border-radius: 0 0 2px 2px;
       background-clip: padding-box;

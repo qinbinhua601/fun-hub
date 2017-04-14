@@ -6,7 +6,7 @@ var vm = new Vue({
     list: [],
     currentId: 0,
     hasMore: true,
-    favoriteList: [],
+    favoriteList: localStorage.getItem('favoriteList') ? JSON.parse(localStorage.getItem('favoriteList')) : [],
     searchingText: ''
   },
   computed: {
@@ -27,26 +27,42 @@ var vm = new Vue({
       _this.currentId = _this.currentId + 1;
       axios.get('/index/' + _this.currentId)
         .then(function ({ status, data }) {
-          console.log(data.archives);
-          _this.list = _this.list.concat(data.archives.map(function(item) { item.isFavorite = false; return item }));
-          _this.hasMore = data.page.count > data.page.num * data.page.size;
-          _this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
+          console.log(data);
+          if(data.length) {
+            _this.list = _this.list.concat(data.map(function(item) { item.isFavorite = _this.favoriteList.includes(item.aid); return item }));
+          }
+           _this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
         })
     },
     onCardClick: function(aid) {
       var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
       console.log(redirectUrl);
-      // window.location.href = redirectUrl;
+      this.openUrl(redirectUrl);
     },
-    addToFavorite: function(id) {
-      this.favoriteList.push(id)
+    addToFavorite: function(item) {
+      item.isFavorite = !item.isFavorite
+      if (item.isFavorite) {
+        this.favoriteList.push(item.aid)
+      } else {
+        var index = this.favoriteList.findIndex(function(i) {
+          return i === item.aid
+        })
+        this.favoriteList.splice(index, 1)
+      }
+        localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList))
+    },
+    openUrl: function(url) {
+      var a = document.createElement('a');
+      a.setAttribute('target', '_blank');
+      a.setAttribute('href', url);
+      a.click();
     }
   },
   mounted: function() {
-    this.getMore();
-    this.getMore();
-    this.getMore();
-    this.getMore();
-    this.getMore();
+    // this.getMore();
+    // this.getMore();
+    // this.getMore();
+    // this.getMore();
+    // this.getMore();
   }
 });

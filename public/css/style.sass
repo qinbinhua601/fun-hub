@@ -17,12 +17,19 @@ body
         background-clip: padding-box
         position: relative
         z-index: -1
-      span.glyphicon-star-empty, span.glyphicon-star
+      span.glyphicon-heart-empty, span.glyphicon-heart
         position: absolute
         top: 10px
         left: 10px
-        color: gold
         font-size: 2em
+        cursor: pointer
+        color: lightgray
+      span.glyphicon-heart
+        color: #e60b97
+      span.glyphicon-heart-empty:hover
+        color: #e60b97
+        &:before
+          content: "\e005"
     .card-title
       @extend  %forceOneLine
     .card-content
