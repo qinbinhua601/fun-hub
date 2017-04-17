@@ -10,7 +10,9 @@ block content
           v-for="item in filteredList.slice((i - 1) * 3, 3 * i)",
           :item="item",
           :key="item.aid",
-          @on-card-click="onCardClick"
+          @on-card-click="onCardClick",
+          @on-card-add-to-favorite="addToFavorite",
+          @on-card-remove-from-favorite="removeFromFavorite"
         )
       vue-infinite-loading(
         :on-infinite="getMore",

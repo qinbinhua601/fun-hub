@@ -1,6 +1,10 @@
 @import "./placeholder"
 body
   padding-top: 70px
+ul
+  margin: 0
+  padding: 0
+  list-style: none
 .tv-list
   padding: 0
   .card
@@ -41,3 +45,12 @@ body
         color: inherit
       span.card-title
         line-height: 48px
+
+ul.week-list
+  & > li
+    margin: 10px 0
+    ul
+      border-top: 1px solid grey
+      margin-top: 5px
+      li
+        @extend  %forceOneLine

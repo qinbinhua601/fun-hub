@@ -1,11 +1,16 @@
 @charset "UTF-8";
-.tv-list .card .card-title {
+.tv-list .card .card-title, ul.week-list > li ul li {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis; }
 
 body {
   padding-top: 70px; }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
 
 .tv-list {
   padding: 0; }
@@ -45,3 +50,9 @@ body {
         color: inherit; }
       .tv-list .card .card-content span.card-title {
         line-height: 48px; }
+
+ul.week-list > li {
+  margin: 10px 0; }
+  ul.week-list > li ul {
+    border-top: 1px solid grey;
+    margin-top: 5px; }

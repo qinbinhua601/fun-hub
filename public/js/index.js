@@ -1,7 +1,7 @@
 'use strict';
 
 Vue.component('vue-infinite-loading', VueInfiniteLoading.default);
-var vm = new Vue({
+var indexView = new Vue({
   el: '#app',
   name: 'app',
   data: {
@@ -42,22 +42,20 @@ var vm = new Vue({
         _this2.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
       });
     },
-
     onCardClick: function onCardClick(aid) {
       var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
       console.log(redirectUrl);
       // this.openUrl(redirectUrl);
     },
     addToFavorite: function addToFavorite(item) {
-      item.isFavorite = !item.isFavorite;
-      if (item.isFavorite) {
-        this.favoriteList.push(item.aid);
-      } else {
-        var index = this.favoriteList.findIndex(function (i) {
-          return i === item.aid;
-        });
-        this.favoriteList.splice(index, 1);
-      }
+      this.favoriteList.push(item.aid);
+      localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
+    },
+    removeFromFavorite: function removeFromFavorite(item) {
+      var index = this.favoriteList.findIndex(function (i) {
+        return i === item.aid;
+      });
+      this.favoriteList.splice(index, 1);
       localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
     },
     openUrl: function openUrl(url) {

@@ -3,6 +3,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const sass = require('gulp-ruby-sass');
+const plumber = require('gulp-plumber');
 
 gulp.task('sass', function() {
     return sass('src/sass/**/*.sass')
@@ -12,6 +13,7 @@ gulp.task('sass', function() {
 
 gulp.task('babel', () => {
 	return gulp.src('src/js/*.js')
+		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.pipe(babel({
 			presets: ['env', 'es2015', 'stage-2']
@@ -21,7 +23,8 @@ gulp.task('babel', () => {
 })
 
 gulp.task('watch', function() {
-  gulp.watch(['babel', 'sass']);
+  gulp.watch('src/js/*.js', ['babel']);
+  gulp.watch('src/sass/**/*.sass', ['sass']);
 })
 
 gulp.task('default', () =>
