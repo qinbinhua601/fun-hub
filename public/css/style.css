@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.tv-list .card .card-title, ul.week-list > li ul li {
+.tv-list .card .card-title, ul.week-list > li ul li p {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis; }
@@ -8,9 +8,10 @@ body {
   padding-top: 70px; }
 
 ul {
-  margin: 0;
-  padding: 0;
   list-style: none; }
+
+[v-cloak] {
+  display: none; }
 
 .tv-list {
   padding: 0; }
@@ -55,4 +56,11 @@ ul.week-list > li {
   margin: 10px 0; }
   ul.week-list > li ul {
     border-top: 1px solid grey;
-    margin-top: 5px; }
+    margin-top: 5px;
+    padding-left: 0; }
+    ul.week-list > li ul li {
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      margin-bottom: 10px; }
+      ul.week-list > li ul li img {
+        width: 100%;
+        margin: 10px 0; }

@@ -1,6 +1,7 @@
 // #top-nav view
 var navView = new Vue({
   el: '#top-nav',
+  name: 'top-nav',
   data: {
     showNav: false
   }
@@ -17,8 +18,7 @@ Vue.component('card', {
       <h4 class="card-title">{{ item.title }}</h4>
       <p>{{ getDate }}</p>
       <!-- <div class="card-content">{{ item.desc }}</div> -->
-    </div>
-  `,
+    </div>`,
   props: {
     item: {
       type: Object

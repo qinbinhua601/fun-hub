@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/cross-env/dist/bin/cross-env.js PORT=5000 node ./bin/www",
+    "start": "node ./node_modules/cross-env/dist/bin/cross-env.js PORT=5000 node ./bin/www",
     "mongod": "mongod --dbpath=./data"
   },
   "dependencies": {

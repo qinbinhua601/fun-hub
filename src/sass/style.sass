@@ -2,9 +2,9 @@
 body
   padding-top: 70px
 ul
-  margin: 0
-  padding: 0
   list-style: none
+[v-cloak]
+  display: none
 .tv-list
   padding: 0
   .card
@@ -52,5 +52,12 @@ ul.week-list
     ul
       border-top: 1px solid grey
       margin-top: 5px
+      padding-left: 0
       li
-        @extend  %forceOneLine
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+        margin-bottom: 10px
+        img
+          width: 100%
+          margin: 10px 0
+        p
+          @extend  %forceOneLine

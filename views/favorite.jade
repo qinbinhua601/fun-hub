@@ -12,8 +12,10 @@ block content
           @on-card-remove-from-favorite="removeFromFavoriteList"
         )
       .no-video-tip.text-center(v-else) no favorite video available
-    ul.week-list
-      li(v-for="(day, index) of weekDays") {{ weekList[index] }}
+    ul.week-list(v-cloak)
+      li.row(v-for="(day, index) of weekDays") {{ weekList[index] }}
         ul
-          li(v-for="(item, index) of day") {{ (index + 1) + '. ' + item.title }}
+          li.col-md-3(v-for="(item, index) of day")
+            img(:src="item.img")
+            p {{ item.title }}
   script(src="/js/favorite.js")
