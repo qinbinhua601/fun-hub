@@ -1,9 +1,11 @@
 extends layout
 
 block content
-  #app.container
+  #app.container(v-cloak)
     form.form-inline
       input.form-control(type="text" id="search" placeholder="Search" v-model="searchingText")
+      select.form-control(v-model="selected" @change="resetCate")
+        option(v-for="item in categories", :value="item.value") {{ item.text }}
     .tv-list
       .row(v-for="i in Math.ceil(filteredList.length / 3)")
         card(

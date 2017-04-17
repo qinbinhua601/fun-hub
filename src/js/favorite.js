@@ -53,6 +53,25 @@ let favoriteView = new Vue({
 
       this.list.splice(index, 1);
 
+    },
+    onCardClick(aid) {
+      var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
+      console.log(redirectUrl);
+      this.openUrl(redirectUrl);
+    },
+    openUrl(url) {
+      var a = document.createElement('a');
+      a.setAttribute('target', '_blank');
+      a.setAttribute('href', url);
+      a.click();
+    },
+    removeFromWeekArray({aid}, index) {
+      console.log(index)
+      let removeIndex = this.weekDays[index].findIndex(item => item.aid === aid)
+      this.weekDays[index].splice(removeIndex, 1)
+      removeIndex = this.favoriteList.findIndex(item => item === aid)
+      this.favoriteList.splice(removeIndex, 1)
+      localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
     }
   },
   mounted: function() {

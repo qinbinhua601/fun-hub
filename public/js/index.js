@@ -6,34 +6,49 @@ var indexView = new Vue({
   name: 'app',
   data: {
     list: [],
-    currentId: 0,
     hasMore: true,
     favoriteList: localStorage.getItem('favoriteList') ? JSON.parse(localStorage.getItem('favoriteList')) : [],
-    searchingText: ''
+    searchingText: '',
+    categories: [{
+      text: '日剧',
+      value: 0,
+      currentId: 0
+    }, {
+      text: '动漫',
+      value: 1,
+      currentId: 0
+    }],
+    selected: localStorage.getItem('defaultCate') ? JSON.parse(localStorage.getItem('defaultCate')) : 0
   },
   computed: {
     filteredList: function filteredList() {
-      var result = [];
       var _this = this;
-      _this.list.forEach(function (item, index) {
+
+      var result = [];
+      this.list.forEach(function (item, index) {
         if (_this.list[index].title.indexOf(_this.searchingText) !== -1) {
           result.push(item);
         }
       });
       return result;
+    },
+    currentId: function currentId() {
+      return this.categories[+this.selected].currentId;
     }
   },
   methods: {
     getMore: function getMore() {
       var _this2 = this;
 
-      this.currentId = this.currentId + 1;
-      // var _this = this;
-      axios.get('/index/' + this.currentId).then(function (_ref) {
+      this.categories[this.selected].currentId = this.categories[this.selected].currentId + 1;
+      axios.get('/index/' + this.currentId, {
+        params: {
+          cate: this.selected
+        }
+      }).then(function (_ref) {
         var status = _ref.status,
             data = _ref.data;
 
-        console.log(data);
         if (data.length) {
           _this2.list = _this2.list.concat(data.map(function (item) {
             item.isFavorite = _this2.favoriteList.includes(item.aid);return item;
@@ -63,14 +78,13 @@ var indexView = new Vue({
       a.setAttribute('target', '_blank');
       a.setAttribute('href', url);
       a.click();
+    },
+    resetCate: function resetCate() {
+      this.list = [];
+      this.getMore();
+      localStorage.setItem('defaultCate', JSON.stringify(this.selected));
     }
   },
-  mounted: function mounted() {
-    // this.getMore();
-    // this.getMore();
-    // this.getMore();
-    // this.getMore();
-    // this.getMore();
-  }
+  mounted: function mounted() {}
 });
 //# sourceMappingURL=index.js.map

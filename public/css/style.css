@@ -61,6 +61,22 @@ ul.week-list > li {
     ul.week-list > li ul li {
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
       margin-bottom: 10px; }
-      ul.week-list > li ul li img {
-        width: 100%;
-        margin: 10px 0; }
+      ul.week-list > li ul li .img {
+        position: relative;
+        background-clip: padding-box; }
+        ul.week-list > li ul li .img img {
+          width: 100%;
+          margin: 10px 0; }
+        ul.week-list > li ul li .img span.glyphicon-heart-empty, ul.week-list > li ul li .img span.glyphicon-heart {
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          font-size: 2em;
+          color: lightgray;
+          z-index: 1; }
+        ul.week-list > li ul li .img span.glyphicon-heart {
+          color: #e60b97; }
+        ul.week-list > li ul li .img span.glyphicon-heart-empty:hover {
+          color: #e60b97; }
+          ul.week-list > li ul li .img span.glyphicon-heart-empty:hover:before {
+            content: ""; }

@@ -5,6 +5,33 @@ var Index = require('../models/index');
 var Video = require('../models/video');
 var request = require('superagent');
 
+var requestUrls = [
+  'http://api.bilibili.com/x/tag/ranking/archives',
+  'http://api.bilibili.com/archive_rank/getarchiverankbypartion'
+]
+
+function getQueryParams(id, cate) {
+  const queryParams = [
+    {
+      jsonp: 'jsonp',
+      tag_id: '5608',
+      rid: '15',
+      ps: '20',
+      pn: id,
+      callback: 'jQuery1720759488614610792_1492071066822',
+      _: '1492071067856'
+    },
+    {
+      type: 'jsonp',
+      tid: '32',
+      pn: id,
+      callback: 'jQuery1720759488614610792_1492071066822',
+      _: '1492441646955'
+    }
+  ]
+  return queryParams[cate]
+}
+
 function getTvResources(url) {
 }
 
@@ -21,6 +48,7 @@ router.get('/index/:id', function (req, res) {
   Video
     .find({})
     .where('page', +req.params.id)
+    .where('cate', +req.query.cate)
     .exec(function(err, data) {
       if (data.length) {
         console.log('found');
@@ -28,18 +56,9 @@ router.get('/index/:id', function (req, res) {
       } else {
         console.log('not found');
         request
-          .get('http://api.bilibili.com/x/tag/ranking/archives')
-          .query({
-            jsonp: 'jsonp',
-            tag_id: '5608',
-            rid: '15',
-            ps: '20',
-            pn: req.params.id,
-            callback: 'jQuery1720759488614610792_1492071066822',
-            _: '1492071067856'
-          })
+          .get(requestUrls[req.query.cate])
+          .query(getQueryParams(+req.params.id, req.query.cate))
           .end((response) => {
-            console.log(response)
             response = response.rawResponse;
             let data = eval(response).data;
             // res.json(data);
@@ -50,7 +69,8 @@ router.get('/index/:id', function (req, res) {
                 title: item.title,
                 img: item.pic,
                 desc: item.desc,
-                page: +req.params.id
+                page: +req.params.id,
+                cate: +req.query.cate
               };
             });
 

@@ -4,30 +4,46 @@ let indexView = new Vue({
   name: 'app',
   data: {
     list: [],
-    currentId: 0,
     hasMore: true,
     favoriteList: localStorage.getItem('favoriteList') ? JSON.parse(localStorage.getItem('favoriteList')) : [],
-    searchingText: ''
+    searchingText: '',
+    categories: [
+      {
+        text: '日剧',
+        value: 0,
+        currentId: 0
+      },
+      {
+        text: '动漫',
+        value: 1,
+        currentId: 0
+      }
+    ],
+    selected: localStorage.getItem('defaultCate') ? JSON.parse(localStorage.getItem('defaultCate')) : 0
   },
   computed: {
-    filteredList: function() {
+    filteredList() {
       var result = [];
-      var _this = this;
-      _this.list.forEach(function(item, index) {
-        if ( _this.list[index].title.indexOf(_this.searchingText) !== -1 ) {
+      this.list.forEach((item, index) => {
+        if ( this.list[index].title.indexOf(this.searchingText) !== -1 ) {
           result.push(item);
         }
       })
       return result;
+    },
+    currentId() {
+      return this.categories[+this.selected].currentId
     }
   },
   methods: {
     getMore() {
-      this.currentId = this.currentId + 1;
-      // var _this = this;
-      axios.get('/index/' + this.currentId)
+      this.categories[this.selected].currentId = this.categories[this.selected].currentId + 1;
+      axios.get('/index/' + this.currentId, {
+          params: {
+            cate: this.selected
+          }
+        })
         .then(({ status, data }) => {
-          console.log(data);
           if(data.length) {
             this.list = this.list.concat(data.map((item) => { item.isFavorite = this.favoriteList.includes(item.aid); return item }));
           }
@@ -55,13 +71,12 @@ let indexView = new Vue({
       a.setAttribute('target', '_blank');
       a.setAttribute('href', url);
       a.click();
+    },
+    resetCate() {
+      this.list = [];
+      this.getMore();
+      localStorage.setItem('defaultCate', JSON.stringify(this.selected))
     }
   },
-  mounted: function() {
-    // this.getMore();
-    // this.getMore();
-    // this.getMore();
-    // this.getMore();
-    // this.getMore();
-  }
+  mounted() {}
 });

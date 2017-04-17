@@ -8,7 +8,8 @@ var videoSchema = new Schema({
     img: { type: String, default: '' },
     updated: { type: Date, default: Date.now },
     created: { type: Date, default: Date.now },
-    page: { type: Number }
+    page: { type: Number },
+    cate: { type: Number }
 });
 
 var Video = mongoose.model('Video', videoSchema);

@@ -49,6 +49,31 @@ var favoriteView = new Vue({
       });
 
       this.list.splice(index, 1);
+    },
+    onCardClick: function onCardClick(aid) {
+      var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
+      console.log(redirectUrl);
+      this.openUrl(redirectUrl);
+    },
+    openUrl: function openUrl(url) {
+      var a = document.createElement('a');
+      a.setAttribute('target', '_blank');
+      a.setAttribute('href', url);
+      a.click();
+    },
+    removeFromWeekArray: function removeFromWeekArray(_ref2, index) {
+      var aid = _ref2.aid;
+
+      console.log(index);
+      var removeIndex = this.weekDays[index].findIndex(function (item) {
+        return item.aid === aid;
+      });
+      this.weekDays[index].splice(removeIndex, 1);
+      removeIndex = this.favoriteList.findIndex(function (item) {
+        return item === aid;
+      });
+      this.favoriteList.splice(removeIndex, 1);
+      localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
     }
   },
   mounted: function mounted() {
