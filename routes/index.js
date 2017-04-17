@@ -4,7 +4,6 @@ var router = express.Router();
 var Index = require('../models/index');
 var Video = require('../models/video');
 var request = require('superagent');
-// var jsonp = require('superagent-jsonp');
 
 function getTvResources(url) {
 }
@@ -39,7 +38,6 @@ router.get('/index/:id', function (req, res) {
             callback: 'jQuery1720759488614610792_1492071066822',
             _: '1492071067856'
           })
-          // .use(jsonp)
           .end((response) => {
             console.log(response)
             response = response.rawResponse;

@@ -23,14 +23,12 @@
     "babel-preset-stage-2": "^6.24.1",
     "cheerio": "^0.22.0",
     "cross-env": "^4.0.0",
+    "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
     "gulp-ruby-sass": "^2.1.1",
     "gulp-sourcemaps": "^2.6.0",
     "mongoose": "^4.9.4",
     "rimraf": "^2.6.1",
-    "superagent": "^3.5.2",
-    "superagent-jsonp": "^0.1.1",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.2"
+    "superagent": "^3.5.2"
   }
 }
