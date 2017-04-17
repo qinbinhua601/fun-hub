@@ -75,7 +75,7 @@
     "no-floating-decimal": 2,
     "no-implicit-coercion": [1, {"boolean": true, "number": false, "string": true}],
     "no-implied-eval": 2,
-    "no-invalid-this": 1,
+    "no-invalid-this": 0,
     "no-loop-func": 0,
     "no-multi-spaces": [
       1,
@@ -179,7 +179,7 @@
     "space-unary-ops": 1,
     // Node
     "callback-return": [1, ["callback", "cb", "next"]],
-    "handle-callback-err": 1,
+    "handle-callback-err": 0,
     "no-mixed-requires": 0,
     //Es6
     "arrow-parens": 0,

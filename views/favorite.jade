@@ -2,5 +2,14 @@ extends layout
 
 block content
 
+  #app.container
+    .tv-list
+      .row(v-for="i in Math.ceil(list.length / 3)" v-if="list.length")
+        card(
+          v-for="item in list.slice((i - 1) * 3, 3 * i)",
+          :item="item",
+          :key="item.aid",
+        )
+      .no-video-tip.text-center(v-else) no favorite video available
 
-script(src="/js/favorite.js")
+  script(src="/js/favorite.js")

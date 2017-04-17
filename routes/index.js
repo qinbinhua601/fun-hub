@@ -46,26 +46,19 @@ router.get('/index/:id', function (req, res) {
             let data = eval(response).data;
             // res.json(data);
             let result = [];
-            for(let item of data.archives) {
-              let video = new Video({
+            result = data.archives.map(function(item) {
+              return {
                 aid: item.aid,
                 title: item.title,
                 img: item.pic,
                 desc: item.desc,
                 page: +req.params.id
-              })
-              video.save(function(err, d) {
-                if (err) return console.error(err);
-              })
-              result.push({
-                aid: item.aid,
-                title: item.title,
-                img: item.pic,
-                desc: item.desc,
-                page: +req.params.id
-              })
-            }
-            res.json(result)
+              };
+            });
+
+            Video.insertMany(result, (err, docs) => {
+              res.json(result)
+            });
           });
       }
     })

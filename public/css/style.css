@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .tv-list .card .card-title {
   overflow: hidden;
   white-space: nowrap;
@@ -12,7 +13,8 @@ body {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     border-radius: 2px;
-    background-clip: padding-box; }
+    background-clip: padding-box;
+    cursor: pointer; }
     .tv-list .card .card-image {
       position: relative;
       overflow: hidden; }
@@ -27,14 +29,13 @@ body {
         top: 10px;
         left: 10px;
         font-size: 2em;
-        cursor: pointer;
         color: lightgray; }
       .tv-list .card .card-image span.glyphicon-heart {
         color: #e60b97; }
       .tv-list .card .card-image span.glyphicon-heart-empty:hover {
         color: #e60b97; }
         .tv-list .card .card-image span.glyphicon-heart-empty:hover:before {
-          content: "\e005"; }
+          content: ""; }
     .tv-list .card .card-content {
       border-radius: 0 0 2px 2px;
       background-clip: padding-box;
@@ -44,5 +45,3 @@ body {
         color: inherit; }
       .tv-list .card .card-content span.card-title {
         line-height: 48px; }
-
-/*# sourceMappingURL=style.css.map */
