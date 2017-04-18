@@ -1,7 +1,6 @@
 "use strict";
 var express = require("express");
 var router = express.Router();
-var Index = require("../models/index");
 var Video = require("../models/video");
 var request = require("superagent");
 var cheerio = require("cheerio");

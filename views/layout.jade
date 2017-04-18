@@ -12,7 +12,6 @@ html
   body
     nav.navbar.navbar-inverse.navbar-fixed-top#top-nav(role='navigation')
       .container
-        // Brand and toggle get grouped for better mobile display
         .navbar-header
           button.navbar-toggle(@click="showNav = !showNav")
             span.sr-only Toggle navigation
@@ -20,7 +19,6 @@ html
             span.icon-bar
             span.icon-bar
           a.navbar-brand(href='/') Fun-Hub
-        // Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse(:class="{in: showNav}")
           ul.nav.navbar-nav
             li
@@ -32,7 +30,6 @@ html
     block content
     script(src="/js/base.js")
   hr
-  // Footer
   footer
     .row
       .col-lg-12.text-center

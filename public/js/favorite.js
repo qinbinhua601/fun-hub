@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
 var weekList = function weekList() {
-  return ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+  return ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
 };
 
 var favoriteView = new Vue({
-  el: '#app',
-  name: 'favorite',
+  el: "#app",
+  name: "favorite",
   data: {
     list: [],
-    favoriteList: localStorage.getItem('favoriteList') ? JSON.parse(localStorage.getItem('favoriteList')) : [],
+    favoriteList: localStorage.getItem("favoriteList") ? JSON.parse(localStorage.getItem("favoriteList")) : [],
     weekList: weekList(),
     weekDays: [[], [], [], [], [], [], []]
   },
@@ -17,9 +17,9 @@ var favoriteView = new Vue({
     getData: function getData() {
       var _this = this;
 
-      axios.get('/favorite/list', {
+      axios.get("/favorite/list", {
         params: {
-          favoriteList: localStorage.getItem('favoriteList') ? JSON.parse(localStorage.getItem('favoriteList')) : []
+          favoriteList: localStorage.getItem("favoriteList") ? JSON.parse(localStorage.getItem("favoriteList")) : []
         }
       }).then(function (_ref) {
         var status = _ref.status,
@@ -42,7 +42,7 @@ var favoriteView = new Vue({
       });
 
       this.favoriteList.splice(index, 1);
-      localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
+      localStorage.setItem("favoriteList", JSON.stringify(this.favoriteList));
 
       index = this.list.findIndex(function (d) {
         return d.aid === item.aid;
@@ -56,9 +56,9 @@ var favoriteView = new Vue({
       this.openUrl(url);
     },
     openUrl: function openUrl(url) {
-      var a = document.createElement('a');
-      a.setAttribute('target', '_blank');
-      a.setAttribute('href', url);
+      var a = document.createElement("a");
+      a.setAttribute("target", "_blank");
+      a.setAttribute("href", url);
       a.click();
     },
     removeFromWeekArray: function removeFromWeekArray(_ref3, index) {
@@ -73,7 +73,7 @@ var favoriteView = new Vue({
         return item === aid;
       });
       this.favoriteList.splice(removeIndex, 1);
-      localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
+      localStorage.setItem("favoriteList", JSON.stringify(this.favoriteList));
     }
   },
   mounted: function mounted() {

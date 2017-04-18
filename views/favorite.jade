@@ -2,9 +2,9 @@ extends layout
 
 block content
 
-  #app.container
-    ul.week-list(v-cloak v-if="list.length")
-      li.row(v-for="(day, index) of weekDays") {{ weekList[index] }}
+  #app
+    ul.week-list.container(v-cloak v-if="list.length")
+      li(v-for="(day, index) of weekDays") {{ weekList[index] }}
         ul
           card.col-md-3(
             v-for="(item, x) of day",

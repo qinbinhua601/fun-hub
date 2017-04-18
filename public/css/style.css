@@ -10,6 +10,16 @@ html, body {
 
 body {
   padding-top: 70px; }
+  body.pc .card > div .card-image span.glyphicon-heart:hover {
+    color: lightgray;
+    transform: scale(1.5); }
+    body.pc .card > div .card-image span.glyphicon-heart:hover:before {
+      content: ""; }
+  body.pc .card > div .card-image span.glyphicon-heart-empty:hover {
+    color: #e60b97;
+    transform: scale(1.5); }
+    body.pc .card > div .card-image span.glyphicon-heart-empty:hover:before {
+      content: ""; }
 
 ul {
   list-style: none; }
@@ -45,16 +55,6 @@ ul {
       transition: all 0.3s linear; }
     .card > div .card-image span.glyphicon-heart {
       color: #e60b97; }
-    .card > div .card-image span.glyphicon-heart-empty:hover {
-      color: #e60b97;
-      transform: scale(1.5); }
-      .card > div .card-image span.glyphicon-heart-empty:hover:before {
-        content: ""; }
-    .card > div .card-image span.glyphicon-heart:hover {
-      color: lightgray;
-      transform: scale(1.5); }
-      .card > div .card-image span.glyphicon-heart:hover:before {
-        content: ""; }
   .card > div .card-content {
     border-radius: 0 0 2px 2px;
     background-clip: padding-box;
@@ -67,11 +67,12 @@ ul {
 
 ul.week-list > li {
   margin: 10px 0;
-  font-size: 1.5em; }
+  font-size: 1.2em; }
   ul.week-list > li ul {
     border-top: 1px solid grey;
     margin-top: 5px;
     padding-left: 0;
-    font-size: initial; }
+    font-size: initial;
+    overflow: hidden; }
     ul.week-list > li ul .card {
       margin: 10px 0; }

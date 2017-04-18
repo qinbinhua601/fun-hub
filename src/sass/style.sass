@@ -4,6 +4,17 @@ html, body
   overflow-x: hidden
 body
   padding-top: 70px
+  &.pc
+    .card > div .card-image span.glyphicon-heart:hover
+      color: lightgray
+      transform: scale(1.5)
+      &:before
+        content: "\e143"
+    .card > div .card-image span.glyphicon-heart-empty:hover
+      color: #e60b97
+      transform: scale(1.5)
+      &:before
+        content: "\e005"
 ul
   list-style: none
 [v-cloak]
@@ -36,16 +47,6 @@ ul
         transition: all .3s linear
       span.glyphicon-heart
         color: #e60b97
-      span.glyphicon-heart-empty:hover
-        color: #e60b97
-        transform: scale(1.5)
-        &:before
-          content: "\e005"
-      span.glyphicon-heart:hover
-        color: lightgray
-        transform: scale(1.5)
-        &:before
-          content: "\e143"
     .card-title
       @extend  %forceOneLine
     .card-content
@@ -61,11 +62,12 @@ ul
 ul.week-list
   & > li
     margin: 10px 0
-    font-size: 1.5em
+    font-size: 1.2em
     ul
       border-top: 1px solid grey
       margin-top: 5px
       padding-left: 0
       font-size: initial
+      overflow: hidden
       .card
         margin: 10px 0
