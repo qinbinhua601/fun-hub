@@ -9,7 +9,7 @@ block content
           card.col-md-3(
             v-for="(item, x) of day",
             @on-card-remove-from-favorite="removeFromWeekArray(item, index)",
-            @on-card-click="onCardClick(item.aid)",
+            @on-card-click="onCardClick(item)",
             :item="item",
             :key="item.aid"
           )

@@ -54,10 +54,8 @@ let favoriteView = new Vue({
       this.list.splice(index, 1);
 
     },
-    onCardClick(aid) {
-      var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
-      console.log(redirectUrl);
-      this.openUrl(redirectUrl);
+    onCardClick({ url }) {
+      this.openUrl(url);
     },
     openUrl(url) {
       var a = document.createElement('a');

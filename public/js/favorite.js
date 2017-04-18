@@ -50,10 +50,10 @@ var favoriteView = new Vue({
 
       this.list.splice(index, 1);
     },
-    onCardClick: function onCardClick(aid) {
-      var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
-      console.log(redirectUrl);
-      this.openUrl(redirectUrl);
+    onCardClick: function onCardClick(_ref2) {
+      var url = _ref2.url;
+
+      this.openUrl(url);
     },
     openUrl: function openUrl(url) {
       var a = document.createElement('a');
@@ -61,8 +61,8 @@ var favoriteView = new Vue({
       a.setAttribute('href', url);
       a.click();
     },
-    removeFromWeekArray: function removeFromWeekArray(_ref2, index) {
-      var aid = _ref2.aid;
+    removeFromWeekArray: function removeFromWeekArray(_ref3, index) {
+      var aid = _ref3.aid;
 
       console.log(index);
       var removeIndex = this.weekDays[index].findIndex(function (item) {

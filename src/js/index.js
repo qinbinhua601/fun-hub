@@ -55,10 +55,8 @@ let indexView = new Vue({
           this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
         })
     },
-    onCardClick(aid) {
-      var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
-      console.log(redirectUrl);
-      this.openUrl(redirectUrl);
+    onCardClick({ url }) {
+      this.openUrl(url);
     },
     addToFavorite(item) {
       this.favoriteList.push(item.aid)

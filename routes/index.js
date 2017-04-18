@@ -40,6 +40,7 @@ router.get("/index/:id", function(req, res) {
                 let $node = $(item);
                 let img = $node.find(".pg-img-wrapper img").attr("src");
                 let title = $node.find(" > a").attr("title");
+                let url = $node.find(" > a").attr("href");
                 let id = $node.data("itemid");
                 let desc = $node.find("span.pg-categories").text();
 
@@ -52,7 +53,8 @@ router.get("/index/:id", function(req, res) {
                     img: img,
                     desc: desc,
                     page: +req.params.id,
-                    cate: +req.query.cate
+                    cate: +req.query.cate,
+                    url: url
                   }
                 );
 
@@ -64,7 +66,8 @@ router.get("/index/:id", function(req, res) {
                   page: +req.params.id,
                   cate: +req.query.cate,
                   created: Date.now(),
-                  updated: Date.now()
+                  updated: Date.now(),
+                  url: url
                 });
               });
               res.json(result);
@@ -84,7 +87,8 @@ router.get("/index/:id", function(req, res) {
                   ),
                   updated: new Date(
                     item.pubdate ? item.pubdate * 1000 : item.create
-                  )
+                  ),
+                  url: `http://www.bilibili.com/video/av${item.aid}`
                 };
               });
               Video.insertMany(result, (err) => {

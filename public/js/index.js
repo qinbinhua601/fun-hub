@@ -61,10 +61,10 @@ var indexView = new Vue({
         _this2.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
       });
     },
-    onCardClick: function onCardClick(aid) {
-      var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
-      console.log(redirectUrl);
-      this.openUrl(redirectUrl);
+    onCardClick: function onCardClick(_ref2) {
+      var url = _ref2.url;
+
+      this.openUrl(url);
     },
     addToFavorite: function addToFavorite(item) {
       this.favoriteList.push(item.aid);
