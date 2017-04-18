@@ -14,7 +14,6 @@ block content
           v-for="item in filteredList.slice((i - 1) * #{col}, #{col} * i)",
           :item="item",
           :key="item.aid",
-          @on-card-click="onCardClick(item)",
           @on-card-add-to-favorite="addToFavorite",
           @on-card-remove-from-favorite="removeFromFavorite"
         )

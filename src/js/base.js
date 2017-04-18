@@ -3,7 +3,8 @@ let navView = new Vue({
   el: "#top-nav",
   name: "top-nav",
   data: {
-    showNav: false
+    showNav: false,
+    videoCount: 0
   }
 });
 
@@ -13,7 +14,9 @@ Vue.component("card", {
     <div @click="$emit('on-card-click', item.aid)" class="card">
       <div>
         <div class="card-image">
-          <img :src="item.img" class="img-responsive" />
+          <a :href="item.url" target="_blank">
+            <img :src="item.img" class="img-responsive" />
+          </a>
           <span :class="[item.isFavorite ? 'glyphicon-heart' : 'glyphicon-heart-empty']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>
         </div>
         <h4 class="card-title">{{ item.title }}</h4>

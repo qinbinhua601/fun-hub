@@ -51,15 +51,6 @@ let favoriteView = new Vue({
 
       this.list.splice(index, 1);
     },
-    onCardClick({ url }) {
-      this.openUrl(url);
-    },
-    openUrl(url) {
-      var a = document.createElement("a");
-      a.setAttribute("target", "_blank");
-      a.setAttribute("href", url);
-      a.click();
-    },
     removeFromWeekArray({ aid }, index) {
       console.log(index);
       let removeIndex = this.weekDays[index].findIndex(

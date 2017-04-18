@@ -63,11 +63,9 @@ let indexView = new Vue({
               })
             );
           }
+          navView.videoCount = this.list.length;
           this.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
         });
-    },
-    onCardClick({ url }) {
-      this.openUrl(url);
     },
     addToFavorite(item) {
       this.favoriteList.push(item.aid);
@@ -79,12 +77,6 @@ let indexView = new Vue({
       });
       this.favoriteList.splice(index, 1);
       localStorage.setItem("favoriteList", JSON.stringify(this.favoriteList));
-    },
-    openUrl(url) {
-      var a = document.createElement("a");
-      a.setAttribute("target", "_blank");
-      a.setAttribute("href", url);
-      a.click();
     },
     resetCate() {
       this.list = [];
