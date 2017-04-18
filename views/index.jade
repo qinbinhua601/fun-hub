@@ -6,10 +6,12 @@ block content
       input.form-control(type="text" id="search" placeholder="Search" v-model="searchingText")
       select.form-control(v-model="selected" @change="resetCate")
         option(v-for="item in categories", :value="item.value") {{ item.text }}
+    - var col = 4
     .tv-list
-      .row(v-for="i in Math.ceil(filteredList.length / 3)")
-        card(
-          v-for="item in filteredList.slice((i - 1) * 3, 3 * i)",
+      .row(v-for="i in Math.ceil(filteredList.length / #{col})")
+        card.col-sm-6(
+          class="col-md-#{12/col}",
+          v-for="item in filteredList.slice((i - 1) * #{col}, #{col} * i)",
           :item="item",
           :key="item.aid",
           @on-card-click="onCardClick",

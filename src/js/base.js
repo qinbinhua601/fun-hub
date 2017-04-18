@@ -10,14 +10,16 @@ var navView = new Vue({
 // define card component
 Vue.component('card', {
   template: `
-    <div @click="$emit('on-card-click', item.aid)" class="card col-md-4 col-sm-6">
-      <div class="card-image">
-        <img :src="item.img" class="img-responsive" />
-        <span :class="[item.isFavorite ? 'glyphicon-heart' : 'glyphicon-heart-empty']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>
+    <div @click="$emit('on-card-click', item.aid)" class="card">
+      <div>
+        <div class="card-image">
+          <img :src="item.img" class="img-responsive" />
+          <span :class="[item.isFavorite ? 'glyphicon-heart' : 'glyphicon-heart-empty']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>
+        </div>
+        <h4 class="card-title">{{ item.title }}</h4>
+        <p>{{ getDate }}</p>
+        <!-- <div class="card-content">{{ item.desc }}</div> -->
       </div>
-      <h4 class="card-title">{{ item.title }}</h4>
-      <p>{{ getDate }}</p>
-      <!-- <div class="card-content">{{ item.desc }}</div> -->
     </div>`,
   props: {
     item: {
@@ -36,7 +38,7 @@ Vue.component('card', {
   },
   computed: {
     getDate() {
-      return `${moment(this.item.updated).weekday()} ${moment(this.item.updated).format('L')}`
+      return moment(this.item.updated).format('YYYY-MM-DD HH:mm:ss')
     }
   }
 });

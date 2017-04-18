@@ -17,6 +17,10 @@ var indexView = new Vue({
       text: '动漫',
       value: 1,
       currentId: 0
+    }, {
+      text: 'fixsub',
+      value: 2,
+      currentId: 0
     }],
     selected: localStorage.getItem('defaultCate') ? JSON.parse(localStorage.getItem('defaultCate')) : 0
   },
@@ -60,7 +64,7 @@ var indexView = new Vue({
     onCardClick: function onCardClick(aid) {
       var redirectUrl = 'http://www.bilibili.com/video/av' + aid;
       console.log(redirectUrl);
-      // this.openUrl(redirectUrl);
+      this.openUrl(redirectUrl);
     },
     addToFavorite: function addToFavorite(item) {
       this.favoriteList.push(item.aid);

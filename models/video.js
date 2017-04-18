@@ -6,8 +6,8 @@ var videoSchema = new Schema({
     title: { type: String, default: '' },
     desc: { type: String, default: '' },
     img: { type: String, default: '' },
-    updated: { type: Date, default: Date.now },
-    created: { type: Date, default: Date.now },
+    updated: { type: Date },
+    created: { type: Date },
     page: { type: Number },
     cate: { type: Number }
 });

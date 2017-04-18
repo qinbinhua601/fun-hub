@@ -32,7 +32,7 @@ let favoriteView = new Vue({
           if (data.length) {
             this.list = this.list.concat(data.map((item) => {
               item.isFavorite = this.favoriteList.includes(item.aid);
-              this.weekDays[count++ % 7].push(item);
+              this.weekDays[(moment(item.updated).day() + 6) % 7].push(item);
               return item;
             }));
           }

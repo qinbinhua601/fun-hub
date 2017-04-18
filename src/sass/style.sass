@@ -1,4 +1,7 @@
 @import "./placeholder"
+html, body
+  max-width: 100%
+  overflow-x: hidden
 body
   padding-top: 70px
 ul
@@ -7,33 +10,42 @@ ul
   display: none
 .tv-list
   padding: 0
-  .card
+.card
+  & > div
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
     box-sizing: border-box
     border-radius: 2px
     background-clip: padding-box
-    cursor: pointer
     .card-image
       position: relative
       overflow: hidden
+      cursor: pointer
       img
         width: 100%
         border-radius: 2px 2px 0 0
         background-clip: padding-box
         position: relative
         z-index: -1
+        max-height: 400px
       span.glyphicon-heart-empty, span.glyphicon-heart
         position: absolute
         top: 10px
         left: 10px
-        font-size: 2em
+        font-size: 1.5em
         color: lightgray
+        transition: all .3s linear
       span.glyphicon-heart
         color: #e60b97
       span.glyphicon-heart-empty:hover
         color: #e60b97
+        transform: scale(1.5)
         &:before
           content: "\e005"
+      span.glyphicon-heart:hover
+        color: lightgray
+        transform: scale(1.5)
+        &:before
+          content: "\e143"
     .card-title
       @extend  %forceOneLine
     .card-content
@@ -49,31 +61,11 @@ ul
 ul.week-list
   & > li
     margin: 10px 0
+    font-size: 1.5em
     ul
       border-top: 1px solid grey
       margin-top: 5px
       padding-left: 0
-      li
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
-        margin-bottom: 10px
-        .img
-          position: relative
-          background-clip: padding-box
-          img
-            width: 100%
-            margin: 10px 0
-          span.glyphicon-heart-empty, span.glyphicon-heart
-            position: absolute
-            top: 10px
-            left: 10px
-            font-size: 2em
-            color: lightgray
-            z-index: 1
-          span.glyphicon-heart
-            color: #e60b97
-          span.glyphicon-heart-empty:hover
-            color: #e60b97
-            &:before
-              content: "\e005"
-        p
-          @extend  %forceOneLine
+      font-size: initial
+      .card
+        margin: 10px 0

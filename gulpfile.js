@@ -11,7 +11,7 @@ gulp.task('sass', function() {
 })
 
 gulp.task('babel', () => {
-	return gulp.src('src/js/*.js')
+	return gulp.src(['src/js/*.js', 'src/config/*.js'])
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.pipe(babel({
