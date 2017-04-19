@@ -7,7 +7,8 @@ const requestUrls = [
   "http://api.bilibili.com/x/tag/ranking/archives", // B站 电视剧
   "http://api.bilibili.com/archive_rank/getarchiverankbypartion", // B站 完结动画
   "http://www.fixsub.com/wp-admin/admin-ajax.php", // fixsub字幕组
-  "http://v.qq.com/x/list/tv" // 腾讯视频
+  "http://v.qq.com/x/list/tv", // 腾讯视频
+  "http://m.bilibili.com/rank/all-3-0.json" // B站 推荐
 ];
 
 let getQueryParams = (id, cate) => {
@@ -46,7 +47,8 @@ let getQueryParams = (id, cate) => {
       iyear: 2017,
       iarea: -1,
       offset: (id - 1) * 30
-    }
+    },
+    {}
   ];
   return queryParams[cate];
 };
@@ -145,11 +147,31 @@ let getResultDataFromFixsub = ($, req) => {
   return result;
 };
 
+let getResultDataFromRec = (data, req) => {
+  let result = [];
+  data = JSON.parse(data);
+  for(let item of data.rank.list) {
+    result.push({
+      aid: item.aid,
+      title: item.title,
+      img: item.pic,
+      desc: '',
+      page: +req.params.id,
+      cate: +req.query.cate,
+      created: Date.now(),
+      updated: Date.now(),
+      url: `http://www.bilibili.com/video/av${item.aid}`
+    });
+  }
+  return result;
+}
+
 module.exports = {
   getQueryParams,
   jQuery1720759488614610792_1492071066822,
   requestUrls,
   getCreate,
   getResultDataFromFixsub,
-  getResultDataFromQQ
+  getResultDataFromQQ,
+  getResultDataFromRec
 };

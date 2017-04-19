@@ -25,6 +25,10 @@ var indexView = new Vue({
       text: "QQ",
       value: 3,
       currentId: 0
+    }, {
+      text: '推荐',
+      value: 4,
+      currentId: 0
     }],
     selected: localStorage.getItem("defaultCate") ? JSON.parse(localStorage.getItem("defaultCate")) : 0
   },

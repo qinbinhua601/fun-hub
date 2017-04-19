@@ -11,7 +11,8 @@ var {
   requestUrls,
   getCreate,
   getResultDataFromFixsub,
-  getResultDataFromQQ
+  getResultDataFromQQ,
+  getResultDataFromRec
 } = require("../src/util/");
 
 /* GET home page. */
@@ -34,7 +35,10 @@ router.get("/index/:id", function(req, res) {
           .query(getQueryParams(+req.params.id, req.query.cate))
           .end((response, q) => {
             let result = [];
-            if (+req.query.cate === 3) {
+            if (+req.query.cate === 4) {
+              result = getResultDataFromRec(q.text, req);
+              res.json(result);
+            } else if (+req.query.cate === 3) {
               let $ = cheerio.load(q.text);
               result = getResultDataFromQQ($, req);
               res.json(result);
