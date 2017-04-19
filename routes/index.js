@@ -9,7 +9,9 @@ var {
   getQueryParams,
   jQuery1720759488614610792_1492071066822,
   requestUrls,
-  getCreate
+  getCreate,
+  getResultDataFromFixsub,
+  getResultDataFromQQ
 } = require("../src/util/");
 
 /* GET home page. */
@@ -32,43 +34,13 @@ router.get("/index/:id", function(req, res) {
           .query(getQueryParams(+req.params.id, req.query.cate))
           .end((response, q) => {
             let result = [];
-            if (+req.query.cate === 2) {
+            if (+req.query.cate === 3) {
+              let $ = cheerio.load(q.text);
+              result = getResultDataFromQQ($, req);
+              res.json(result);
+            } else if (+req.query.cate === 2) {
               let $ = cheerio.load(JSON.parse(q.text).items);
-              result = [];
-              $(".pg-item").each((index, item) => {
-                let $node = $(item);
-                let img = $node.find(".pg-img-wrapper img").attr("src");
-                let title = $node.find(" > a").attr("title");
-                let url = $node.find(" > a").attr("href");
-                let id = $node.data("itemid");
-                let desc = $node.find("span.pg-categories").text();
-
-
-                getCreate(
-                  "http://www.fixsub.com/portfolio/" + encodeURIComponent(title),
-                  {
-                    aid: id,
-                    title: title,
-                    img: img,
-                    desc: desc,
-                    page: +req.params.id,
-                    cate: +req.query.cate,
-                    url: url
-                  }
-                );
-
-                result.push({
-                  aid: id,
-                  title: title,
-                  img: img,
-                  desc: desc,
-                  page: +req.params.id,
-                  cate: +req.query.cate,
-                  created: Date.now(),
-                  updated: Date.now(),
-                  url: url
-                });
-              });
+              result = getResultDataFromFixsub($, req);
               res.json(result);
             } else {
               let data = eval(response.rawResponse).data;

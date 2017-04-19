@@ -4,9 +4,10 @@ var request = require("superagent");
 var cheerio = require("cheerio");
 
 const requestUrls = [
-  "http://api.bilibili.com/x/tag/ranking/archives",
-  "http://api.bilibili.com/archive_rank/getarchiverankbypartion",
-  "http://www.fixsub.com/wp-admin/admin-ajax.php"
+  "http://api.bilibili.com/x/tag/ranking/archives", // B站 电视剧
+  "http://api.bilibili.com/archive_rank/getarchiverankbypartion", // B站 完结动画
+  "http://www.fixsub.com/wp-admin/admin-ajax.php", // fixsub字幕组
+  "http://v.qq.com/x/list/tv" // 腾讯视频
 ];
 
 let getQueryParams = (id, cate) => {
@@ -40,7 +41,12 @@ let getQueryParams = (id, cate) => {
         action: "pexeto_get_portfolio_items"
       },
       { arrayFormat: "brackets" }
-    )
+    ),
+    {
+      iyear: 2017,
+      iarea: -1,
+      offset: (id - 1) * 30
+    }
   ];
   return queryParams[cate];
 };
@@ -74,9 +80,77 @@ let getCreate = (url, data) => {
   });
 };
 
+let getResultDataFromQQ = ($, req) => {
+  let result = [];
+  $("li.list_item").each((index, item) => {
+    let url = $(item).find(".figure_title_score a").attr("href");
+    let title = $(item).find(".figure_title_score a").attr("title");
+    let img = $(item).find('> a > img').attr('r-lazyload');
+    let desc = $(item)
+      .find(".figure_desc")
+      .text()
+      .replace(/\t/g, "")
+      .replace(/\n{2,3}/g, "\n")
+      .split("\n")
+      .join(" ")
+      .trim();
+    let aid = url.match(/https:\/\/v.qq.com\/x\/cover\/(\w+).html/)[1];
+    console.log([title, img, url, desc, aid]);
+    result.push({
+      aid: aid,
+      title: title,
+      img: img,
+      desc: desc,
+      page: +req.params.id,
+      cate: +req.query.cate,
+      created: Date.now(),
+      updated: Date.now(),
+      url: url
+    });
+  });
+  return result;
+};
+
+let getResultDataFromFixsub = ($, req) => {
+  let result = [];
+  $(".pg-item").each((index, item) => {
+    let $node = $(item);
+    let img = $node.find(".pg-img-wrapper img").attr("src");
+    let title = $node.find(" > a").attr("title");
+    let url = $node.find(" > a").attr("href");
+    let id = $node.data("itemid");
+    let desc = $node.find("span.pg-categories").text();
+
+    getCreate("http://www.fixsub.com/portfolio/" + encodeURIComponent(title), {
+      aid: id,
+      title: title,
+      img: img,
+      desc: desc,
+      page: +req.params.id,
+      cate: +req.query.cate,
+      url: url
+    });
+
+    result.push({
+      aid: id,
+      title: title,
+      img: img,
+      desc: desc,
+      page: +req.params.id,
+      cate: +req.query.cate,
+      created: Date.now(),
+      updated: Date.now(),
+      url: url
+    });
+  });
+  return result;
+};
+
 module.exports = {
   getQueryParams,
   jQuery1720759488614610792_1492071066822,
   requestUrls,
-  getCreate
+  getCreate,
+  getResultDataFromFixsub,
+  getResultDataFromQQ
 };

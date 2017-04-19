@@ -18,39 +18,22 @@ function getCreate(url, cb) {
 
 function getData() {
   request
-    .get("http://www.fixsub.com/wp-admin/admin-ajax.php")
-    .set("Accept", "application/json")
-    .query(
-      qs.stringify(
-        {
-          page: 1,
-          number: 8,
-          imgheight: 240,
-          columns: 4,
-          page_url: "http://www.fixsub.com/%e6%88%91%e4%bb%ac%e7%9a%84%e4%bd%9c%e5%93%81",
-          require_nav: false,
-          orderby: "menu_order",
-          order: "ASC",
-          action: "pexeto_get_portfolio_items"
-        },
-        { arrayFormat: "brackets" }
-      )
-    )
+    .get("http://v.qq.com/x/list/tv")
+    .query({
+      iyear: 2017,
+      iarea: -1,
+      offset: 0
+    })
     .end((err, res) => {
-      let data = JSON.parse(res.text).items;
+      let data = res.text;
       let $ = cheerio.load(data);
-      $(".pg-item").each((index, item) => {
-        let $node = $(item);
-        let img = $node.find(".pg-img-wrapper img").attr("src");
-        let title = $node.find(" > a").attr("title");
-        let id = $node.data("itemid");
-        let desc = $node.find("span.pg-categories").text();
-        getCreate(
-          "http://www.fixsub.com/portfolio/" + encodeURIComponent(title),
-          (time) => {
-            console.log([img, title, id, desc, time]);
-          }
-        );
+      $("li.list_item").each((index, item) => {
+        let link = $(item).find('.figure_title_score a').attr('href');
+        let title = $(item).find('.figure_title_score a').attr('title');
+        let img = $(item).find('> a > img').attr('r-lazyload');
+        let desc = $(item).find('.figure_desc').text().replace(/\t/g, '').replace(/\n{2,3}/g, '\n').split('\n').join(' ').trim();
+        let aid = link.match(/https:\/\/v.qq.com\/x\/cover\/(\w+).html/)[1];
+        console.log([title, img, link, desc, aid])
       });
     });
 }

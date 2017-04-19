@@ -24,6 +24,11 @@ let indexView = new Vue({
         text: "fixsub",
         value: 2,
         currentId: 0
+      },
+      {
+        text: "QQ",
+        value: 3,
+        currentId: 0
       }
     ],
     selected: localStorage.getItem("defaultCate")

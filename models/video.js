@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 var videoSchema = new Schema({
-    aid: { type: Number },
+    aid: { type: String },
     title: { type: String, default: '' },
     desc: { type: String, default: '' },
     img: { type: String, default: '' },

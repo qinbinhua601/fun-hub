@@ -1,3 +1,5 @@
+let eventHub = new Vue();
+
 // #top-nav view
 let navView = new Vue({
   el: "#top-nav",
@@ -5,6 +7,12 @@ let navView = new Vue({
   data: {
     showNav: false,
     videoCount: 0
+  },
+  created() {
+    eventHub.$on('update-video-count', (newVideoCount) => {
+      console.log('hello')
+      this.videoCount = newVideoCount;
+    });
   }
 });
 

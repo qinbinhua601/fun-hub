@@ -1,5 +1,7 @@
 "use strict";
 
+var eventHub = new Vue();
+
 // #top-nav view
 var navView = new Vue({
   el: "#top-nav",
@@ -7,6 +9,14 @@ var navView = new Vue({
   data: {
     showNav: false,
     videoCount: 0
+  },
+  created: function created() {
+    var _this = this;
+
+    eventHub.$on('update-video-count', function (newVideoCount) {
+      console.log('hello');
+      _this.videoCount = newVideoCount;
+    });
   }
 });
 

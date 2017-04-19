@@ -35,6 +35,8 @@ let favoriteView = new Vue({
               })
             );
           }
+          // navView.videoCount = this.list.length;
+          eventHub.$emit('update-video-count', this.list.length)
         });
     },
     removeFromFavoriteList(item) {
