@@ -1,13 +1,20 @@
-const gulp = require('gulp');
-const sourcemaps = require('gulp-sourcemaps');
-const babel = require('gulp-babel');
-const sass = require('gulp-ruby-sass');
-const plumber = require('gulp-plumber');
+var gulp = require('gulp');
+var sourcemaps = require('gulp-sourcemaps');
+var babel = require('gulp-babel');
+var sass = require('gulp-ruby-sass');
+var plumber = require('gulp-plumber');
+var browserSync = require('browser-sync').create();
+var reload = browserSync.reload;
 
-gulp.task('sass', function() {
+browserSync.init({
+	proxy: 'localhost:5000'
+});
+
+gulp.task('sass', () => {
     return sass('src/sass/**/*.sass')
         .on('error', sass.logError)
         .pipe(gulp.dest('public/css'))
+				.pipe(browserSync.stream())
 })
 
 gulp.task('babel', () => {
@@ -19,6 +26,7 @@ gulp.task('babel', () => {
 		}))
 		.pipe(sourcemaps.write('.'))
 		.pipe(gulp.dest('public/js'))
+		.pipe(browserSync.stream())
 })
 
 gulp.task('watch', function() {
@@ -26,6 +34,4 @@ gulp.task('watch', function() {
   gulp.watch('src/sass/**/*.sass', ['sass']);
 })
 
-gulp.task('default', () =>
-	gulp.start('babel', 'sass', 'watch')
-)
+gulp.task('default', ['babel', 'sass', 'watch'])

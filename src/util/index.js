@@ -95,7 +95,6 @@ let getResultDataFromQQ = ($, req) => {
       .join(" ")
       .trim();
     let aid = url.match(/https:\/\/v.qq.com\/x\/cover\/(\w+).html/)[1];
-    console.log([title, img, url, desc, aid]);
     result.push({
       aid: aid,
       title: title,
