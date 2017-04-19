@@ -52,4 +52,23 @@ var touch = "ontouchstart" in document.documentElement || navigator.maxTouchPoin
 if (!touch) {
   document.body.setAttribute("class", "pc");
 }
+
+document.body.onscroll = _.debounce(function () {
+  var $toTop = document.getElementById('to-top');
+  if (document.body.scrollTop > 100) {
+    console.log(1);
+    $toTop.style.display = 'block';
+  } else {
+    console.log(2);
+    $toTop.style.display = 'none';
+  }
+}, 200, {
+  leading: true
+});
+
+document.getElementById('to-top').onclick = function (e) {
+  e.stopPropagation();
+  this.style.display = 'none';
+  document.body.scrollTop = 0;
+};
 //# sourceMappingURL=base.js.map

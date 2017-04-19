@@ -9,6 +9,7 @@ html
     script(src="//unpkg.com/vue@latest")
     script(src="/lib/vue-infinite-loading.js")
     script(src="//momentjs.com/downloads/moment-with-locales.min.js")
+    script(src="//cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js")
   body
     nav.navbar.navbar-inverse.navbar-fixed-top#top-nav(role='navigation')
       .container
@@ -27,6 +28,8 @@ html
               a(href='/about') About
             li
               a(href='/contact') Contact
+    #to-top(style="display: none;")
+      span.glyphicon.glyphicon-arrow-up
     script(src="/js/base.js")
     block content
   hr

@@ -64,3 +64,22 @@ var touch =
 if (!touch) {
   document.body.setAttribute("class", "pc");
 }
+
+document.body.onscroll = _.debounce(() => {
+  let $toTop = document.getElementById('to-top');
+  if (document.body.scrollTop > 100) {
+    console.log(1)
+    $toTop.style.display = 'block';
+  } else {
+    console.log(2)
+    $toTop.style.display = 'none';
+  }
+}, 200, {
+  leading: true
+})
+
+document.getElementById('to-top').onclick = function(e) {
+  e.stopPropagation();
+  this.style.display = 'none';
+  document.body.scrollTop = 0;
+}
