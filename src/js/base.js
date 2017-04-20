@@ -18,9 +18,10 @@ let navView = new Vue({
 // define card component
 Vue.component('card', {
   template: `
-    <transition name="list"
-      :enter-active-class="['fadeInRight', 'fadeOutLeft', 'bounceIn', 'bounceOut', 'rotateIn', 'rotateOut'][_.random(0,2) * 2]"
-      :leave-active-class="['fadeInRight', 'fadeOutLeft', 'bounceIn', 'bounceOut', 'rotateIn', 'rotateOut'][_.random(0,2) * 2 + 1]"
+    <transition
+      name="list",
+      :enter-active-class="enterActiveClass",
+      :leave-active-class="leaveActiveClass"
     >
       <div @click="$emit('on-card-click', item.aid)" class="card">
         <div>
@@ -35,6 +36,11 @@ Vue.component('card', {
         </div>
       </div>
     </transition>`,
+  data() {
+    return {
+      animLib: ['fadeInRight', 'fadeOutLeft', 'bounceIn', 'bounceOut', 'rotateIn', 'rotateOut']
+    }
+  },
   props: {
     item: {
       type: Object
@@ -44,6 +50,10 @@ Vue.component('card', {
     },
     row: {
       type: Number
+    },
+    crazyMode: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -59,6 +69,12 @@ Vue.component('card', {
   computed: {
     getDate() {
       return moment(this.item.updated).format('YYYY-MM-DD HH:mm:ss');
+    },
+    enterActiveClass() {
+      return this.crazyMode ? this.animLib[_.random(0,(this.animLib.length - 1)) * (this.animLib.length - 1)] : 'zoomIn'
+    },
+    leaveActiveClass() {
+      return this.crazyMode ? this.animLib[_.random(0,(this.animLib.length - 1) + 1) * (this.animLib.length - 1) + 1] : 'zoomOut'
     }
   }
 });

@@ -85,6 +85,26 @@
 .rotateOut {
   animation-name: rotateOut; }
 
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3); }
+  50% {
+    opacity: 1; } }
+.zoomIn {
+  animation-name: zoomIn; }
+
+@keyframes zoomOut {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3); }
+  100% {
+    opacity: 0; } }
+.zoomOut {
+  animation-name: zoomOut; }
+
 html, body {
   max-width: 100%;
   overflow-x: hidden; }
@@ -142,6 +162,12 @@ ul {
 
 .rotateOut {
   animation: rotateOut 0.5s; }
+
+.zoomIn {
+  animation: zoomIn 0.5s; }
+
+.zoomOut {
+  animation: zoomOut 0.5s; }
 
 .card > div {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);

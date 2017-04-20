@@ -5,6 +5,8 @@
 @import "./animations/bounceOut"
 @import "./animations/rotateIn"
 @import "./animations/rotateOut"
+@import "./animations/zoomIn"
+@import "./animations/zoomOut"
 html, body
   max-width: 100%
   overflow-x: hidden
@@ -52,10 +54,11 @@ ul
   animation: rotateIn .5s
 .rotateOut
   animation: rotateOut .5s
-// .list-enter-active
-//   animation: fadeInRight .5s
-// .list-leave-active
-//   animation: fadeOutLeft .5s
+.zoomIn
+  animation: zoomIn .5s
+.zoomOut
+  animation: zoomOut .5s
+
 .card
   & > div
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
