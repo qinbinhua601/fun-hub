@@ -9,27 +9,33 @@ var indexView = new Vue({
     hasMore: true,
     favoriteList: localStorage.getItem("favoriteList") ? JSON.parse(localStorage.getItem("favoriteList")) : [],
     searchingText: "",
-    categories: [{
-      text: "日剧",
-      value: 0,
-      currentId: 0
-    }, {
-      text: "动漫",
-      value: 1,
-      currentId: 0
-    }, {
-      text: "fixsub",
-      value: 2,
-      currentId: 0
-    }, {
-      text: "QQ",
-      value: 3,
-      currentId: 0
-    }, {
-      text: '推荐',
-      value: 4,
-      currentId: 0
-    }],
+    categories: {
+      0: {
+        text: "日剧",
+        value: 0,
+        currentId: 0
+      },
+      1: {
+        text: "动漫",
+        value: 1,
+        currentId: 0
+      },
+      // 2: {
+      //   text: "fixsub",
+      //   value: 2,
+      //   currentId: 0
+      // },
+      3: {
+        text: "QQ",
+        value: 3,
+        currentId: 0
+      },
+      4: {
+        text: '推荐',
+        value: 4,
+        currentId: 0
+      }
+    },
     selected: localStorage.getItem("defaultCate") ? JSON.parse(localStorage.getItem("defaultCate")) : 0
   },
   computed: {

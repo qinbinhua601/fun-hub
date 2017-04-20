@@ -4,6 +4,87 @@
   white-space: nowrap;
   text-overflow: ellipsis; }
 
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0); }
+  100% {
+    opacity: 1;
+    transform: none; } }
+.fadeInRight {
+  animation-name: fadeInRight; }
+
+@keyframes fadeOutLeft {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0); } }
+.fadeOutLeft {
+  animation-name: fadeOutLeft; }
+
+@keyframes bounceIn {
+  0%,
+    100%,
+    20%,
+    40%,
+    60%,
+    80% {
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3); }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1); }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9); }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03); }
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97); }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1); } }
+.bounceIn {
+  animation-name: bounceIn; }
+
+@keyframes bounceOut {
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9); }
+  50%,
+    55% {
+    opacity: 1;
+    transform: scale3d(1.1, 1.1, 1.1); }
+  100% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3); } }
+.bounceOut {
+  animation-name: bounceOut; }
+
+@keyframes rotateIn {
+  0% {
+    transform-origin: center;
+    transform: rotate3d(0, 0, 1, -200deg);
+    opacity: 0; }
+  100% {
+    transform-origin: center;
+    transform: none;
+    opacity: 1; } }
+.rotateIn {
+  animation-name: rotateIn; }
+
+@keyframes rotateOut {
+  0% {
+    transform-origin: center;
+    opacity: 1; }
+  100% {
+    transform-origin: center;
+    transform: rotate3d(0, 0, 1, 200deg);
+    opacity: 0; } }
+.rotateOut {
+  animation-name: rotateOut; }
+
 html, body {
   max-width: 100%;
   overflow-x: hidden; }
@@ -43,6 +124,24 @@ ul {
 
 .tv-list {
   padding: 0; }
+
+.fadeInRight {
+  animation: fadeInRight 0.5s; }
+
+.fadeOutLeft {
+  animation: fadeOutLeft 0.5s; }
+
+.bounceIn {
+  animation: bounceIn 0.5s; }
+
+.bounceOut {
+  animation: bounceOut 0.5s; }
+
+.rotateIn {
+  animation: rotateIn 0.5s; }
+
+.rotateOut {
+  animation: rotateOut 0.5s; }
 
 .card > div {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);

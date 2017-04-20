@@ -2,84 +2,95 @@ let eventHub = new Vue();
 
 // #top-nav view
 let navView = new Vue({
-  el: "#top-nav",
-  name: "top-nav",
+  el: '#top-nav',
+  name: 'top-nav',
   data: {
     showNav: false,
     videoCount: 0
   },
   created() {
-    eventHub.$on('update-video-count', (newVideoCount) => {
-      console.log('hello')
+    eventHub.$on('update-video-count', newVideoCount => {
       this.videoCount = newVideoCount;
     });
   }
 });
 
 // define card component
-Vue.component("card", {
+Vue.component('card', {
   template: `
-    <div @click="$emit('on-card-click', item.aid)" class="card">
-      <div>
-        <div class="card-image">
-          <a :href="item.url" target="_blank">
-            <img :src="item.img" class="img-responsive" />
-          </a>
-          <span :class="[item.isFavorite ? 'glyphicon-heart' : 'glyphicon-heart-empty']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>
+    <transition name="list"
+      :enter-active-class="['fadeInRight', 'fadeOutLeft', 'bounceIn', 'bounceOut', 'rotateIn', 'rotateOut'][_.random(0,2) * 2]"
+      :leave-active-class="['fadeInRight', 'fadeOutLeft', 'bounceIn', 'bounceOut', 'rotateIn', 'rotateOut'][_.random(0,2) * 2 + 1]"
+    >
+      <div @click="$emit('on-card-click', item.aid)" class="card">
+        <div>
+          <div class="card-image">
+            <a :href="item.url" target="_blank">
+              <img :src="item.img" class="img-responsive" />
+            </a>
+            <span :class="[item.isFavorite ? 'glyphicon-heart' : 'glyphicon-heart-empty']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>
+          </div>
+          <h4 class="card-title">{{ item.title }}</h4>
+          <p>{{ getDate }}</p>
         </div>
-        <h4 class="card-title">{{ item.title }}</h4>
-        <p>{{ getDate }}</p>
       </div>
-    </div>`,
+    </transition>`,
   props: {
     item: {
       type: Object
+    },
+    index: {
+      type: Number
+    },
+    row: {
+      type: Number
     }
   },
   methods: {
     onFavoriteClick(item) {
       item.isFavorite = !item.isFavorite;
       if (item.isFavorite) {
-        this.$emit("on-card-add-to-favorite", item);
+        this.$emit('on-card-add-to-favorite', item);
       } else {
-        this.$emit("on-card-remove-from-favorite", item);
+        this.$emit('on-card-remove-from-favorite', item);
       }
     }
   },
   computed: {
     getDate() {
-      return moment(this.item.updated).format("YYYY-MM-DD HH:mm:ss");
+      return moment(this.item.updated).format('YYYY-MM-DD HH:mm:ss');
     }
   }
 });
 
 // detecting if touch mobile device
 var touch =
-  "ontouchstart" in document.documentElement ||
+  'ontouchstart' in document.documentElement ||
   navigator.maxTouchPoints > 0 ||
   navigator.msMaxTouchPoints > 0;
 
-
 // for disabling the hover css effect
 if (!touch) {
-  document.body.setAttribute("class", "pc");
+  document.body.setAttribute('class', 'pc');
 }
 
-document.body.onscroll = _.debounce(() => {
-  let $toTop = document.getElementById('to-top');
-  if (document.body.scrollTop > 100) {
-    console.log(1)
-    $toTop.style.display = 'block';
-  } else {
-    console.log(2)
-    $toTop.style.display = 'none';
+document.body.onscroll = _.debounce(
+  () => {
+    let $toTop = document.getElementById('to-top');
+    if (document.body.scrollTop > 100) {
+      $toTop.style.display = 'block';
+    } else {
+      $toTop.style.display = 'none';
+    }
+  },
+  200,
+  {
+    leading: true
   }
-}, 200, {
-  leading: true
-})
+);
 
 document.getElementById('to-top').onclick = function(e) {
   e.stopPropagation();
   this.style.display = 'none';
   document.body.scrollTop = 0;
-}
+};

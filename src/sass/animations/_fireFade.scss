@@ -1,0 +1,28 @@
+@keyframes fireFade {
+  0% {
+    background-image: url('~assets/flame.png');
+  }
+  50% {
+    background-image: url('~assets/flame_l.png');
+  }
+  100% {
+    background-image: url('~assets/flame.png');
+  }
+}
+
+@keyframes fireFadeIn {
+  0%{
+    transform: scale(0)
+  }
+  100% {
+    transform: scale(1)
+  }
+}
+
+.fireFade {
+  animation: fireFade 200ms linear infinite
+}
+
+.fireFadeIn {
+  animation: fireFadeIn 1s linear
+}

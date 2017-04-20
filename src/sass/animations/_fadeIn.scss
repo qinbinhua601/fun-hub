@@ -1,0 +1,69 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
+
+.shine {
+  animation: shine 1.5s ease infinite;
+}
+
+@keyframes shine1 {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+.shine1 {
+    animation: shine1 1.5s ease infinite;
+}
+
+@keyframes shine2 {
+    0% {
+        opacity: 0.8;
+        background-image: url('~assets/send-ring.png');
+    }
+    50% {
+        opacity: 1;
+        background-image: url('~assets/send-ring-l.png');
+    }
+    100% {
+        opacity: 0.8;
+        background-image: url('~assets/send-ring.png');
+    }
+}
+
+.shine2 {
+    animation: shine2 1.5s ease infinite;
+}
+
+.fadeIn {
+    animation: fadeIn 1s ease;
+}

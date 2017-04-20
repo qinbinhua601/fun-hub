@@ -1,0 +1,18 @@
+@keyframes rotateFadeIn {
+  0% {
+    opacity: 0;
+    transform: rotateZ(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: rotateZ(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: rotateZ(360deg);
+  }
+}
+
+.rotateFadeIn {
+  animation: rotateFadeIn 5s linear infinite;
+}

@@ -1,4 +1,10 @@
 @import "./placeholder"
+@import "./animations/fadeInRight"
+@import "./animations/fadeOutLeft"
+@import "./animations/bounceIn"
+@import "./animations/bounceOut"
+@import "./animations/rotateIn"
+@import "./animations/rotateOut"
 html, body
   max-width: 100%
   overflow-x: hidden
@@ -34,6 +40,22 @@ ul
   display: none
 .tv-list
   padding: 0
+.fadeInRight
+  animation: fadeInRight .5s
+.fadeOutLeft
+  animation: fadeOutLeft .5s
+.bounceIn
+  animation: bounceIn .5s
+.bounceOut
+  animation: bounceOut .5s
+.rotateIn
+  animation: rotateIn .5s
+.rotateOut
+  animation: rotateOut .5s
+// .list-enter-active
+//   animation: fadeInRight .5s
+// .list-leave-active
+//   animation: fadeOutLeft .5s
 .card
   & > div
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)

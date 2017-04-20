@@ -7,13 +7,16 @@ block content
       select.form-control(v-model="selected" @change="resetCate")
         option(v-for="item in categories", :value="item.value") {{ item.text }}
     - var col = 4
+
     .tv-list
       .row(v-for="i in Math.ceil(filteredList.length / #{col})")
         card.col-sm-6(
           class="col-md-#{12/col}",
-          v-for="item in filteredList.slice((i - 1) * #{col}, #{col} * i)",
+          v-for="(item, index) in filteredList.slice((i - 1) * #{col}, #{col} * i)",
           :item="item",
           :key="item.aid",
+          :index="index",
+          :row="i",
           @on-card-add-to-favorite="addToFavorite",
           @on-card-remove-from-favorite="removeFromFavorite"
         )

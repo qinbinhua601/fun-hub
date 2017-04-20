@@ -112,7 +112,7 @@
     ],
     // Variables
     "no-shadow": 1,
-    "no-undef": 1,
+    "no-undef": 0,
     "no-undefined": 0,
     "no-unused-vars": [
       0,
