@@ -36,8 +36,12 @@ router.get("/index/:id", function(req, res) {
           .end((response, q) => {
             let result = [];
             if (+req.query.cate === 4) {
-              result = getResultDataFromRec(q.text, req);
-              res.json(result);
+              if (+req.params.id > 1) {
+                res.json([])
+              } else {
+                result = getResultDataFromRec(q.text, req);
+                res.json(result);
+              }
             } else if (+req.query.cate === 3) {
               let $ = cheerio.load(q.text);
               result = getResultDataFromQQ($, req);

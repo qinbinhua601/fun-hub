@@ -74,7 +74,11 @@ var indexView = new Vue({
           }));
         }
         navView.videoCount = _this2.list.length;
-        _this2.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
+        if (data.length) {
+          _this2.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
+        } else {
+          _this2.$refs.infiniteLoading.$emit("$InfiniteLoading:complete");
+        }
       });
     },
     addToFavorite: function addToFavorite(item) {
@@ -91,6 +95,7 @@ var indexView = new Vue({
     resetCate: function resetCate() {
       this.list = [];
       this.getMore();
+      this.$refs.infiniteLoading.$emit("$InfiniteLoading:reset");
       localStorage.setItem("defaultCate", JSON.stringify(this.selected));
     }
   },

@@ -74,7 +74,11 @@ let indexView = new Vue({
             );
           }
           navView.videoCount = this.list.length;
-          this.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
+          if (data.length) {
+            this.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
+          } else {
+            this.$refs.infiniteLoading.$emit("$InfiniteLoading:complete");
+          }
         });
     },
     addToFavorite(item) {
@@ -91,6 +95,7 @@ let indexView = new Vue({
     resetCate() {
       this.list = [];
       this.getMore();
+      this.$refs.infiniteLoading.$emit("$InfiniteLoading:reset");
       localStorage.setItem("defaultCate", JSON.stringify(this.selected));
     }
   },
