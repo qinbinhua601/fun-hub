@@ -71,10 +71,10 @@ Vue.component('card', {
       return moment(this.item.updated).format('YYYY-MM-DD HH:mm:ss');
     },
     enterActiveClass() {
-      return this.crazyMode ? this.animLib[_.random(0,(this.animLib.length - 1)) * (this.animLib.length - 1)] : 'zoomIn'
+      return this.crazyMode ? this.animLib[_.random(0, (this.animLib.length - 1)) * (this.animLib.length - 1)] : 'zoomIn';
     },
     leaveActiveClass() {
-      return this.crazyMode ? this.animLib[_.random(0,(this.animLib.length - 1) + 1) * (this.animLib.length - 1) + 1] : 'zoomOut'
+      return this.crazyMode ? this.animLib[_.random(0, (this.animLib.length - 1) + 1) * (this.animLib.length - 1) + 1] : 'zoomOut';
     }
   }
 });
