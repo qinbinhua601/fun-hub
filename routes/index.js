@@ -45,7 +45,10 @@ router.get("/index/:id", function(req, res) {
             } else if (+req.query.cate === 3) {
               let $ = cheerio.load(q.text);
               result = getResultDataFromQQ($, req);
-              res.json(result);
+              Video.insertMany(result, (err) => {
+                console.log(err)
+                res.json(result);
+              });
             } else if (+req.query.cate === 2) {
               let $ = cheerio.load(JSON.parse(q.text).items);
               result = getResultDataFromFixsub($, req);
