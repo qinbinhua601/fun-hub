@@ -17,6 +17,8 @@ var contact = require('./routes/contact');
 
 var app = express();
 
+app.locals.vueCdnUrl = process.env.NODE_ENV === 'production' ? '//cdn.bootcss.com/vue/2.2.6/vue.min.js' : '//cdn.bootcss.com/vue/2.2.6/vue.js';
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

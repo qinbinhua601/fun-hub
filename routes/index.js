@@ -17,8 +17,7 @@ var {
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  const vueCdnUrl = process.env.NODE_ENV === 'production' ? '//cdn.bootcss.com/vue/2.2.6/vue.min.js' : '//cdn.bootcss.com/vue/2.2.6/vue.js'
-  res.render("index", { vueCdnUrl });
+  res.render("index");
 });
 
 router.get("/index/:id", function (req, res) {
