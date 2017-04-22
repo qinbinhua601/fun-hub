@@ -16,15 +16,16 @@ var {
 } = require("../src/util/");
 
 /* GET home page. */
-router.get("/", function(req, res, next) {
-  res.render("index");
+router.get("/", function (req, res, next) {
+  const vueCdnUrl = process.env.NODE_ENV === 'production' ? '//cdn.bootcss.com/vue/2.2.6/vue.min.js' : '//cdn.bootcss.com/vue/2.2.6/vue.js'
+  res.render("index", { vueCdnUrl });
 });
 
-router.get("/index/:id", function(req, res) {
+router.get("/index/:id", function (req, res) {
   Video.find({})
     .where("page", +req.params.id)
     .where("cate", +req.query.cate)
-    .exec(function(err, data) {
+    .exec(function (err, data) {
       if (data.length) {
         console.log("found");
         res.send(data);
@@ -56,7 +57,7 @@ router.get("/index/:id", function(req, res) {
             } else {
               let data = eval(response.rawResponse).data;
               result = [];
-              result = data.archives.map(function(item) {
+              result = data.archives.map(function (item) {
                 return {
                   aid: item.aid,
                   title: item.title,
