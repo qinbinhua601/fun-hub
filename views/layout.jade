@@ -2,9 +2,16 @@ doctype html
 html
   head
     title Fun-Hub
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=0")
+    meta(name="apple-mobile-web-app-capable" content="yes")
+    meta(name="apple-touch-fullscreen" content="yes")
+    link(rel="apple-touch-icon", href="img/touch-icon-iphone.png")
+    link(rel="apple-touch-icon", sizes="152x152", href="img/touch-icon-ipad.png")
+    link(rel="apple-touch-icon", sizes="180x180", href="img/touch-icon-iphone-retina.png")
+    link(rel="apple-touch-icon", sizes="167x167", href="img/touch-icon-ipad-retina.png")
+    link(rel="apple-touch-startup-image", href="/img/launch.jpg")
     link(rel="stylesheet", href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css")
     link(rel='stylesheet', href='/css/style.css')
-    meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=0")
     script(src="//cdn.bootcss.com/axios/0.16.1/axios.min.js")
     script(src="//cdn.bootcss.com/vue/2.2.6/vue.min.js")
     script(src="/lib/vue-infinite-loading.js")
