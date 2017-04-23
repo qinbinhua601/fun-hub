@@ -16,3 +16,10 @@ A hub for aggregating the tv series which I'm following :)
 - [ ] save the user favorite to the server
 - [ ] replace the ip with a subdomain to visit
 - [ ] maybe a litte bit cache from the client side
+
+## how to run
+```
+  npm run mongod
+  npm run dev
+  gulp
+```
