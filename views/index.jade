@@ -2,10 +2,16 @@ extends layout
 
 block content
   #app.container(v-cloak)
-    form.form-inline
-      input.form-control(type="text" id="search" placeholder="Search" v-model="searchingText")
-      select.form-control(v-model="selected" @change="resetCate")
-        option(v-for="item in categories", :value="item.value") {{ item.text }}
+    .container
+      .row
+        .input-group.col-md-3.col-sm-12
+          .input-group-btn(:class="{ open: showDropdown }")
+            button(type="button" class="btn btn-default dropdown-toggle" @click="showDropdown = !showDropdown") {{ categories[selected].text }}
+              span.caret(style="margin-left: 5px;")
+            ul.dropdown-menu(v-show="showDropdown")
+              li(v-for="item in categories" @click="resetCate(item)")
+                a(href="#") {{ item.text }}
+          input.form-control(type="text" id="search" placeholder="Search" v-model="searchingText")
     - var col = 4
 
     .tv-list
@@ -27,5 +33,5 @@ block content
         spinner="waveDots"
       )
         span(slot="no-more") No more
-      button.btn.btn-default.btn-block(@click="getMore") Get More
+      button.btn.btn-default.btn-block(@click="getMore" v-if="hasMore") Get More
   script(src="/js/index.js")

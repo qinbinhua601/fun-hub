@@ -5,6 +5,7 @@ var indexView = new Vue({
   el: "#app",
   name: "app",
   data: {
+    showDropdown: false,
     list: [],
     hasMore: true,
     favoriteList: localStorage.getItem("favoriteList") ? JSON.parse(localStorage.getItem("favoriteList")) : [],
@@ -58,6 +59,10 @@ var indexView = new Vue({
     getMore: function getMore() {
       var _this2 = this;
 
+      if (!this.hasMore) {
+        return;
+      }
+
       this.categories[this.selected].currentId = this.categories[this.selected].currentId + 1;
       axios.get("/index/" + this.currentId, {
         params: {
@@ -78,6 +83,7 @@ var indexView = new Vue({
           _this2.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
         } else {
           _this2.$refs.infiniteLoading.$emit("$InfiniteLoading:complete");
+          _this2.hasMore = false;
         }
       });
     },
@@ -92,11 +98,15 @@ var indexView = new Vue({
       this.favoriteList.splice(index, 1);
       localStorage.setItem("favoriteList", JSON.stringify(this.favoriteList));
     },
-    resetCate: function resetCate() {
+    resetCate: function resetCate(item) {
+      item.currentId = 0;
       this.list = [];
-      this.getMore();
+      this.showDropdown = false;
+      this.selected = item.value;
       this.$refs.infiniteLoading.$emit("$InfiniteLoading:reset");
       localStorage.setItem("defaultCate", JSON.stringify(this.selected));
+      this.hasMore = true;
+      this.getMore();
     }
   },
   mounted: function mounted() {}
