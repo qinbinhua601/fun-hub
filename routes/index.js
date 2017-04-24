@@ -24,6 +24,7 @@ router.get("/index/:id", function (req, res) {
   Video.find({})
     .where("page", +req.params.id)
     .where("cate", +req.query.cate)
+    .sort({ view: -1 })
     .exec(function (err, data) {
       if (data.length) {
         console.log("found");

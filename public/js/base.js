@@ -21,7 +21,7 @@ var navView = new Vue({
 
 // define card component
 Vue.component('card', {
-  template: '\n    <transition\n      name="list",\n      :enter-active-class="enterActiveClass",\n      :leave-active-class="leaveActiveClass"\n    >\n      <div @click="$emit(\'on-card-click\', item.aid)" class="card">\n        <div>\n          <div class="card-image">\n            <a :href="item.url" target="_blank">\n              <img :src="item.img" class="img-responsive" />\n            </a>\n            <span :class="[item.isFavorite ? \'glyphicon-heart\' : \'glyphicon-heart-empty\']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>\n          </div>\n          <h4 class="card-title">{{ item.title }}</h4>\n          <p>{{ getDate }}</p>\n        </div>\n      </div>\n    </transition>',
+  template: '\n    <transition\n      name="list",\n      :enter-active-class="enterActiveClass",\n      :leave-active-class="leaveActiveClass"\n    >\n      <div @click="$emit(\'on-card-click\', item.aid)" class="card">\n        <div>\n          <div class="card-image">\n            <a :href="item.url" target="_blank">\n              <img :src="item.img" class="img-responsive" />\n            </a>\n            <span :class="[item.isFavorite ? \'glyphicon-heart\' : \'glyphicon-heart-empty\']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>\n          </div>\n          <h4 class="card-title">{{ item.title }}</h4>\n          <div class="card-bottom">\n            <span>{{ getDate }}</span>\n            <span class="pull-right">\n              <span class="glyphicon glyphicon-eye-open"></span>\n              <i>{{ getView }}</i>\n            </span>\n          </div>\n        </div>\n      </div>\n    </transition>',
   data: function data() {
     return {
       animLib: ['fadeInRight', 'fadeOutLeft', 'bounceIn', 'bounceOut', 'rotateIn', 'rotateOut']
@@ -62,6 +62,9 @@ Vue.component('card', {
     },
     leaveActiveClass: function leaveActiveClass() {
       return this.crazyMode ? this.animLib[_.random(0, this.animLib.length - 1 + 1) * (this.animLib.length - 1) + 1] : 'zoomOut';
+    },
+    getView: function getView() {
+      return this.item.view > 100000000 ? this.item.view / 100000000 + '亿' : this.item.view > 10000 ? this.item.view / 10000 + '万' : this.item.view;
     }
   }
 });

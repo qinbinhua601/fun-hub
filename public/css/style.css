@@ -203,6 +203,8 @@ ul {
       color: inherit; }
     .card > div .card-content span.card-title {
       line-height: 48px; }
+  .card > div .card-bottom {
+    padding: 0 10px; }
 
 ul.week-list > li {
   margin: 10px 0;
