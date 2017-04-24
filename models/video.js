@@ -10,7 +10,8 @@ var videoSchema = new Schema({
     created: { type: Date },
     page: { type: Number },
     cate: { type: Number },
-    url: { type: String }
+    url: { type: String },
+    view: { type: Number, defualt: 0 }
 });
 
 var Video = mongoose.model('Video', videoSchema);

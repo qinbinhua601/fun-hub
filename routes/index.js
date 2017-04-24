@@ -40,7 +40,10 @@ router.get("/index/:id", function (req, res) {
                 res.json([])
               } else {
                 result = getResultDataFromRec(q.text, req);
-                res.json(result);
+                Video.insertMany(result, (err) => {
+                  console.log(err)
+                  res.json(result);
+                });
               }
             } else if (+req.query.cate === 3) {
               let $ = cheerio.load(q.text);
@@ -70,7 +73,8 @@ router.get("/index/:id", function (req, res) {
                   updated: new Date(
                     item.pubdate ? item.pubdate * 1000 : item.create
                   ),
-                  url: `http://www.bilibili.com/video/av${item.aid}`
+                  url: `http://www.bilibili.com/video/av${item.aid}`,
+                  view: item.stat.view
                 };
               });
               Video.insertMany(result, (err) => {

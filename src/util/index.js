@@ -88,6 +88,7 @@ let getResultDataFromQQ = ($, req) => {
     let url = $(item).find(".figure_title_score a").attr("href");
     let title = $(item).find(".figure_title_score a").attr("title");
     let img = $(item).find('> a > img').attr('r-lazyload');
+    let view = $(item).find('.figure_count span.num').text().replace('万', '0000').replace('亿', '00000000');
     let desc = $(item)
       .find(".figure_desc")
       .text()
@@ -106,7 +107,8 @@ let getResultDataFromQQ = ($, req) => {
       cate: +req.query.cate,
       created: Date.now(),
       updated: Date.now(),
-      url: url
+      url: url,
+      view: +view
     });
   });
   return result;
@@ -129,7 +131,7 @@ let getResultDataFromFixsub = ($, req) => {
       desc: desc,
       page: +req.params.id,
       cate: +req.query.cate,
-      url: url
+      url: url,
     });
 
     result.push({
@@ -141,7 +143,8 @@ let getResultDataFromFixsub = ($, req) => {
       cate: +req.query.cate,
       created: Date.now(),
       updated: Date.now(),
-      url: url
+      url: url,
+      view: 0
     });
   });
   return result;
@@ -160,7 +163,8 @@ let getResultDataFromRec = (data, req) => {
       cate: +req.query.cate,
       created: Date.now(),
       updated: Date.now(),
-      url: `http://www.bilibili.com/video/av${item.aid}`
+      url: `http://www.bilibili.com/video/av${item.aid}`,
+      view: item.video_review
     });
   }
   return result;
