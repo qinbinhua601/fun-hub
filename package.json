@@ -14,7 +14,11 @@
     "express": "~4.15.2",
     "jade": "~1.11.0",
     "morgan": "~1.8.1",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "mongoose": "^4.9.4",
+    "cheerio": "^0.22.0",
+    "cross-env": "^4.0.0",
+    "superagent": "^3.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -24,17 +28,12 @@
     "babelify": "^7.3.0",
     "browser-sync": "^2.18.8",
     "browserify": "^14.3.0",
-    "cheerio": "^0.22.0",
-    "cross-env": "^4.0.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
     "gulp-plumber": "^1.1.0",
     "gulp-ruby-sass": "^2.1.1",
     "gulp-sourcemaps": "^2.6.0",
-    "mongoose": "^4.9.4",
     "qs": "^6.4.0",
-    "rimraf": "^2.6.1",
-    "superagent": "^3.5.2",
-    "vueify": "^9.4.1"
+    "rimraf": "^2.6.1"
   }
 }
