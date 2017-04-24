@@ -20,6 +20,7 @@ block content
           @on-card-add-to-favorite="addToFavorite",
           @on-card-remove-from-favorite="removeFromFavorite"
         )
+        .clearfix.visible-md
       vue-infinite-loading(
         :on-infinite="getMore",
         ref="infiniteLoading",

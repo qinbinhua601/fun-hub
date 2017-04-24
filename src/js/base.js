@@ -38,8 +38,15 @@ Vue.component('card', {
     </transition>`,
   data() {
     return {
-      animLib: ['fadeInRight', 'fadeOutLeft', 'bounceIn', 'bounceOut', 'rotateIn', 'rotateOut']
-    }
+      animLib: [
+        'fadeInRight',
+        'fadeOutLeft',
+        'bounceIn',
+        'bounceOut',
+        'rotateIn',
+        'rotateOut'
+      ]
+    };
   },
   props: {
     item: {
@@ -71,10 +78,20 @@ Vue.component('card', {
       return moment(this.item.updated).format('YYYY-MM-DD HH:mm:ss');
     },
     enterActiveClass() {
-      return this.crazyMode ? this.animLib[_.random(0, (this.animLib.length - 1)) * (this.animLib.length - 1)] : 'zoomIn';
+      return this.crazyMode
+        ? this.animLib[
+            _.random(0, this.animLib.length - 1) * (this.animLib.length - 1)
+          ]
+        : 'zoomIn';
     },
     leaveActiveClass() {
-      return this.crazyMode ? this.animLib[_.random(0, (this.animLib.length - 1) + 1) * (this.animLib.length - 1) + 1] : 'zoomOut';
+      return this.crazyMode
+        ? this.animLib[
+            _.random(0, this.animLib.length - 1 + 1) *
+              (this.animLib.length - 1) +
+              1
+          ]
+        : 'zoomOut';
     }
   }
 });
@@ -110,3 +127,26 @@ document.getElementById('to-top').onclick = function(e) {
   this.style.display = 'none';
   document.body.scrollTop = 0;
 };
+
+// prevent add to home screen app, A link to open by safari
+if ('standalone' in window.navigator && window.navigator.standalone) {
+  var noddy, remotes = false;
+  document.addEventListener(
+    'click',
+    function(event) {
+      noddy = event.target;
+      while (noddy.nodeName !== 'A' && noddy.nodeName !== 'HTML') {
+        noddy = noddy.parentNode;
+      }
+      if (
+        'href' in noddy &&
+        noddy.href.indexOf('http') !== -1 &&
+        (noddy.href.indexOf(document.location.host) !== -1 || remotes)
+      ) {
+        event.preventDefault();
+        document.location.href = noddy.href;
+      }
+    },
+    false
+  );
+}
