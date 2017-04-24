@@ -32,3 +32,4 @@ npm-debug.log
 data
 .sass-cache
 rsync.sh
+run_spider.sh
