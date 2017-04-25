@@ -64,7 +64,7 @@ Vue.component('card', {
       return this.crazyMode ? this.animLib[_.random(0, this.animLib.length - 1 + 1) * (this.animLib.length - 1) + 1] : 'zoomOut';
     },
     getView: function getView() {
-      return this.item.view > 100000000 ? this.item.view / 100000000 + '亿' : this.item.view > 10000 ? this.item.view / 10000 + '万' : this.item.view;
+      return this.item.view >= 100000000 ? this.item.view / 100000000 + '亿' : this.item.view >= 10000 ? this.item.view / 10000 + '万' : this.item.view;
     }
   }
 });

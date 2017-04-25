@@ -100,9 +100,9 @@ Vue.component('card', {
         : 'zoomOut';
     },
     getView() {
-      return this.item.view > 100000000
+      return this.item.view >= 100000000
         ? this.item.view / 100000000 + '亿'
-        : this.item.view > 10000
+        : this.item.view >= 10000
             ? this.item.view / 10000 + '万'
             : this.item.view;
     }
