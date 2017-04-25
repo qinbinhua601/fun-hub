@@ -8,8 +8,16 @@ const requestUrls = [
   "http://api.bilibili.com/archive_rank/getarchiverankbypartion", // B站 完结动画
   "http://www.fixsub.com/wp-admin/admin-ajax.php", // fixsub字幕组
   "http://v.qq.com/x/list/tv", // 腾讯视频
-  "http://m.bilibili.com/rank/all-3-0.json" // B站 推荐
+  "http://m.bilibili.com/rank/all-3-0.json", // B站 推荐
+  "http://list.youku.com/category/show/c_100_r_2017_u_2_s_1_d_1_p_1.html" // 优酷动漫2017，更新中
 ];
+
+let getRequestUrls = (cate, page) => {
+  if (cate === 5) {
+    return `http://list.youku.com/category/show/c_100_r_2017_u_2_s_1_d_1_p_${page}.html`
+  }
+    return requestUrls[cate]
+}
 
 let getQueryParams = (id, cate) => {
   const queryParams = [
@@ -48,7 +56,10 @@ let getQueryParams = (id, cate) => {
       iarea: -1,
       offset: (id - 1) * 30
     },
-    {}
+    {},
+    {
+      spm: 'a2h1n.8251845.0.0'
+    }
   ];
   return queryParams[cate];
 };
@@ -170,12 +181,52 @@ let getResultDataFromRec = (data, req) => {
   return result;
 }
 
+function convertNumber(input) {
+  let n;
+  if (input.indexOf('万') !== -1) {
+    n = Number(input.replace(/万/g, '')) * 10000
+  } else if (input.indexOf('亿') !== -1) {
+    n = Number(input.replace(/亿/g, '')) * 100000000
+  } else {
+    n = Number(input.replace(/,/g, ''))
+  }
+  return n;
+}
+
+let getResultDataFromYouku = ($, req) => {
+  let result = [];
+  $(".box-series li.yk-col4").each((index, item) => {
+    let title = $(item).find('ul.info-list li.title a').text();
+    let link = $(item).find('ul.info-list li.title a').attr('href');
+    let img = $(item).find('img.quic').attr('_src');
+    let desc = $(item).find('ul.info-list li.actor').text();
+    let aid = link.match(/id_(.*).html/)[1];
+    let len = $(item).find('ul.info-list li').length;
+    let view = $(item).find('ul.info-list li').eq(len - 1).text().match(/(.*)次播放/)[1];
+    view = convertNumber(view);
+    result.push({
+      aid: aid,
+      title: title,
+      img: img,
+      desc: desc,
+      page: +req.params.id,
+      cate: +req.query.cate,
+      created: Date.now(),
+      updated: Date.now(),
+      url: link,
+      view: +view
+    });
+  });
+  return result;
+}
 module.exports = {
   getQueryParams,
   jQuery1720759488614610792_1492071066822,
-  requestUrls,
+  // requestUrls,
   getCreate,
   getResultDataFromFixsub,
   getResultDataFromQQ,
-  getResultDataFromRec
+  getResultDataFromRec,
+  getRequestUrls,
+  getResultDataFromYouku
 };

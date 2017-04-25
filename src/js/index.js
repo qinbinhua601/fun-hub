@@ -35,6 +35,11 @@ let indexView = new Vue({
         text: '推荐',
         value: 4,
         currentId: 0
+      },
+      5: {
+        text: '优酷动漫',
+        value: 5,
+        currentId: 0
       }
     },
     selected: localStorage.getItem("defaultCate")

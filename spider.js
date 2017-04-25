@@ -16,11 +16,12 @@ if (!argv.length) {
 var {
   getQueryParams,
   jQuery1720759488614610792_1492071066822,
-  requestUrls,
   getCreate,
   getResultDataFromFixsub,
   getResultDataFromQQ,
-  getResultDataFromRec
+  getResultDataFromRec,
+  getRequestUrls,
+  getResultDataFromYouku
 } = require("./src/util/");
 
 var cate = argv[0];
@@ -36,12 +37,32 @@ function getData() {
     return
   }
   let [page, cate] = stack.pop();
+  let req = {
+    params: {
+      id: page
+    },
+    query: {
+      cate: cate
+    }
+  }
   request
-    .get(requestUrls[cate])
+    .get(getRequestUrls(+cate, +page))
     .query(getQueryParams(+page, cate))
     .end((response, q) => {
       let result = [];
-      if (+cate === 4) {
+      if (+cate === 5) {
+        let $ = cheerio.load(q.text);
+        let totalCount = +$('#total_videonum').text();
+        (page === 1) && (maxPage = Math.ceil(totalCount / 30));
+        result = getResultDataFromYouku($, req)
+        Video.insertMany(result, (err) => {
+          console.log(`page ${page} / ${maxPage} is done`)
+          finishedStack.push(page)
+          if (err) {
+            console.log(`error at page ${page}`);
+          }
+        });
+      } else if (+cate === 4) {
         if (+page > 1) {
           // res.json([])
         } else {

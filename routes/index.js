@@ -8,11 +8,12 @@ var cheerio = require("cheerio");
 var {
   getQueryParams,
   jQuery1720759488614610792_1492071066822,
-  requestUrls,
   getCreate,
   getResultDataFromFixsub,
   getResultDataFromQQ,
-  getResultDataFromRec
+  getResultDataFromRec,
+  getRequestUrls,
+  getResultDataFromYouku
 } = require("../src/util/");
 
 /* GET home page. */
@@ -32,11 +33,20 @@ router.get("/index/:id", function (req, res) {
       } else {
         console.log("not found");
         request
-          .get(requestUrls[req.query.cate])
+          .get(getRequestUrls(+req.query.cate, +req.params.id))
           .query(getQueryParams(+req.params.id, req.query.cate))
           .end((response, q) => {
             let result = [];
-            if (+req.query.cate === 4) {
+            if (+req.query.cate === 5) {
+              let $ = cheerio.load(q.text);
+              result = getResultDataFromYouku($, req)
+              console.log(result)
+              res.json(result)
+              Video.insertMany(result, (err) => {
+                console.log(err)
+                res.json(result);
+              });
+            } else if (+req.query.cate === 4) {
               if (+req.params.id > 1) {
                 res.json([])
               } else {
