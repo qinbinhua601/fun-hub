@@ -31,7 +31,7 @@ Vue.component('card', {
             </a>
             <span :class="[item.isFavorite ? 'glyphicon-heart' : 'glyphicon-heart-empty']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>
           </div>
-          <h4 class="card-title">{{ item.title }}</h4>
+          <h4 class="card-title" v-html="item.searchedText"></h4>
           <div class="card-bottom">
             <span>{{ getDate }}</span>
             <span class="pull-right">
@@ -100,9 +100,9 @@ Vue.component('card', {
         : 'zoomOut';
     },
     getView() {
-      return this.item.view >= 100000000
+      return this.item.view > 100000000
         ? this.item.view / 100000000 + '亿'
-        : this.item.view >= 10000
+        : this.item.view > 10000
             ? this.item.view / 10000 + '万'
             : this.item.view;
     }

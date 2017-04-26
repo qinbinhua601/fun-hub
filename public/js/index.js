@@ -51,6 +51,10 @@ var indexView = new Vue({
       var result = [];
       this.list.forEach(function (item, index) {
         if (_this.list[index].title.indexOf(_this.searchingText) !== -1) {
+          item.searchedText = item.title.replace(_this.searchingText, "<mark>" + _this.searchingText + "</mark>");
+          if (!_this.searchingText) {
+            item.searchedText = item.title;
+          }
           result.push(item);
         }
       });
@@ -80,6 +84,7 @@ var indexView = new Vue({
         if (data.length) {
           _this2.list = _this2.list.concat(data.map(function (item) {
             item.isFavorite = _this2.favoriteList.includes(item.aid);
+            item.searchedText = item.title;
             return item;
           }));
         }
@@ -108,6 +113,7 @@ var indexView = new Vue({
       this.list = [];
       this.showDropdown = false;
       this.selected = item.value;
+      this.searchingText = '';
       this.$refs.infiniteLoading.$emit("$InfiniteLoading:reset");
       localStorage.setItem("defaultCate", JSON.stringify(this.selected));
       this.hasMore = true;
