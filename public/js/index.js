@@ -43,7 +43,8 @@ var indexView = new Vue({
       }
     },
     selected: localStorage.getItem("defaultCate") ? JSON.parse(localStorage.getItem("defaultCate")) : 0,
-    searchedList: []
+    searchedList: [],
+    isLoading: false
   },
   computed: {
     filteredList: function filteredList() {
@@ -60,6 +61,10 @@ var indexView = new Vue({
       if (!this.hasMore) {
         return;
       }
+      if (this.isLoading) {
+        return;
+      }
+      this.isLoading = true;
       this.categories[this.selected].currentId = this.categories[this.selected].currentId + 1;
       axios.get("/index/search", {
         params: {
@@ -71,6 +76,7 @@ var indexView = new Vue({
         var status = _ref.status,
             data = _ref.data;
 
+        _this.isLoading = false;
         if (_this.searchingText) {
           _this.searchedList = _this.searchedList.concat(data.map(function (item) {
             item.isFavorite = _this.favoriteList.includes(item.aid);
@@ -122,6 +128,7 @@ var indexView = new Vue({
       this.$refs.infiniteLoading.$emit("$InfiniteLoading:reset");
       localStorage.setItem("defaultCate", JSON.stringify(this.selected));
       this.hasMore = true;
+      this.isLoading = false;
       this.getMore();
     },
     onInputHandler: function onInputHandler() {}

@@ -45,7 +45,8 @@ let indexView = new Vue({
     selected: localStorage.getItem("defaultCate")
       ? JSON.parse(localStorage.getItem("defaultCate"))
       : 0,
-    searchedList: []
+    searchedList: [],
+    isLoading: false
   },
   computed: {
     filteredList() {
@@ -60,6 +61,10 @@ let indexView = new Vue({
       if (!this.hasMore) {
         return
       }
+      if (this.isLoading) {
+        return
+      }
+      this.isLoading = true
       this.categories[this.selected].currentId =
         this.categories[this.selected].currentId + 1;
       axios
@@ -71,6 +76,7 @@ let indexView = new Vue({
           }
         })
         .then(({ status, data }) => {
+          this.isLoading = false;
           if (this.searchingText) {
             this.searchedList = this.searchedList.concat(
               data.map(item => {
@@ -126,6 +132,7 @@ let indexView = new Vue({
       this.$refs.infiniteLoading.$emit("$InfiniteLoading:reset");
       localStorage.setItem("defaultCate", JSON.stringify(this.selected));
       this.hasMore = true;
+      this.isLoading = false;
       this.getMore();
     },
     onInputHandler() {}
