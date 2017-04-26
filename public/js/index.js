@@ -48,17 +48,6 @@ var indexView = new Vue({
   computed: {
     filteredList: function filteredList() {
       return this.searchingText ? this.searchedList : this.list;
-      // var result = [];
-      // this.list.forEach((item, index) => {
-      //   if (this.list[index].title.indexOf(this.searchingText) !== -1) {
-      //     item.searchedText = item.title.replace(this.searchingText, `<mark>${this.searchingText}</mark>`);
-      //     if (!this.searchingText) {
-      //       item.searchedText = item.title
-      //     }
-      //     result.push(item);
-      //   }
-      // });
-      // return result;
     },
     currentId: function currentId() {
       return this.categories[+this.selected].currentId;
