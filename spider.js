@@ -63,23 +63,29 @@ function getData() {
           }
         });
       } else if (+cate === 4) {
+        maxPage = 1;
         if (+page > 1) {
           // res.json([])
         } else {
           result = getResultDataFromRec(q.text, req);
           Video.insertMany(result, (err) => {
-            console.log(err)
-            console.log(`page ${page} is done`)
-            // console.log(result);
+            console.log(`page ${page} / ${maxPage} is done`)
+            finishedStack.push(page)
+            if (err) {
+              console.log(`error at page ${page}`);
+            }
           });
         }
       } else if (+cate === 3) {
         let $ = cheerio.load(q.text);
+        maxPage = +$('.filter_option .option_txt').eq(-1).text().split('/')[1];
         result = getResultDataFromQQ($, req);
         Video.insertMany(result, (err) => {
-          console.log(err)
-          console.log(`page ${page} is done`)
-          // console.log(result);
+          console.log(`page ${page} / ${maxPage} is done`)
+          finishedStack.push(page)
+          if (err) {
+            console.log(`error at page ${page}`);
+          }
         });
       } else if (+cate === 2) {
         let $ = cheerio.load(JSON.parse(q.text).items);

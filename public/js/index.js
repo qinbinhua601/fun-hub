@@ -42,23 +42,23 @@ var indexView = new Vue({
         currentId: 0
       }
     },
-    selected: localStorage.getItem("defaultCate") ? JSON.parse(localStorage.getItem("defaultCate")) : 0
+    selected: localStorage.getItem("defaultCate") ? JSON.parse(localStorage.getItem("defaultCate")) : 0,
+    searchedList: []
   },
   computed: {
     filteredList: function filteredList() {
-      var _this = this;
-
-      var result = [];
-      this.list.forEach(function (item, index) {
-        if (_this.list[index].title.indexOf(_this.searchingText) !== -1) {
-          item.searchedText = item.title.replace(_this.searchingText, "<mark>" + _this.searchingText + "</mark>");
-          if (!_this.searchingText) {
-            item.searchedText = item.title;
-          }
-          result.push(item);
-        }
-      });
-      return result;
+      return this.searchingText ? this.searchedList : this.list;
+      // var result = [];
+      // this.list.forEach((item, index) => {
+      //   if (this.list[index].title.indexOf(this.searchingText) !== -1) {
+      //     item.searchedText = item.title.replace(this.searchingText, `<mark>${this.searchingText}</mark>`);
+      //     if (!this.searchingText) {
+      //       item.searchedText = item.title
+      //     }
+      //     result.push(item);
+      //   }
+      // });
+      // return result;
     },
     currentId: function currentId() {
       return this.categories[+this.selected].currentId;
@@ -66,34 +66,50 @@ var indexView = new Vue({
   },
   methods: {
     getMore: function getMore() {
-      var _this2 = this;
+      var _this = this;
 
       if (!this.hasMore) {
         return;
       }
-
       this.categories[this.selected].currentId = this.categories[this.selected].currentId + 1;
-      axios.get("/index/" + this.currentId, {
+      axios.get("/index/search", {
         params: {
-          cate: this.selected
+          cate: this.selected,
+          page: this.currentId,
+          q: this.searchingText
         }
       }).then(function (_ref) {
         var status = _ref.status,
             data = _ref.data;
 
+        if (_this.searchingText) {
+          _this.searchedList = _this.searchedList.concat(data.map(function (item) {
+            item.isFavorite = _this.favoriteList.includes(item.aid);
+            item.searchedText = item.title.replace(_this.searchingText, "<mark>" + _this.searchingText + "</mark>");
+            return item;
+          }));
+          navView.videoCount = _this.searchedList.length;
+          if (data.length) {
+            _this.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
+          } else {
+            _this.$refs.infiniteLoading.$emit("$InfiniteLoading:complete");
+            _this.hasMore = false;
+          }
+          return;
+        }
         if (data.length) {
-          _this2.list = _this2.list.concat(data.map(function (item) {
-            item.isFavorite = _this2.favoriteList.includes(item.aid);
+          _this.list = _this.list.concat(data.map(function (item) {
+            item.isFavorite = _this.favoriteList.includes(item.aid);
             item.searchedText = item.title;
             return item;
           }));
         }
-        navView.videoCount = _this2.list.length;
+        navView.videoCount = _this.list.length;
         if (data.length) {
-          _this2.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
+          _this.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
         } else {
-          _this2.$refs.infiniteLoading.$emit("$InfiniteLoading:complete");
-          _this2.hasMore = false;
+          _this.$refs.infiniteLoading.$emit("$InfiniteLoading:complete");
+          _this.hasMore = false;
         }
       });
     },
@@ -118,8 +134,24 @@ var indexView = new Vue({
       localStorage.setItem("defaultCate", JSON.stringify(this.selected));
       this.hasMore = true;
       this.getMore();
-    }
+    },
+    onInputHandler: function onInputHandler() {}
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.onInputHandler = _.debounce(function () {
+      _this2.categories[_this2.selected].currentId = 0;
+      _this2.showDropdown = false;
+      _this2.$refs.infiniteLoading.$emit("$InfiniteLoading:reset");
+      _this2.hasMore = true;
+      if (_this2.searchingText) {
+        _this2.searchedList = [];
+        _this2.getMore();
+      } else {
+        _this2.list = [];
+      }
+    }, 300);
+  }
 });
 //# sourceMappingURL=index.js.map

@@ -21,6 +21,29 @@ router.get("/", function (req, res, next) {
   res.render("index");
 });
 
+router.get("/index/search", function (req, res, next) {
+  let cate = +req.query.cate;
+  let q = req.query.q;
+  let re = new RegExp(q);
+  let limit = req.query.limit || 20;
+  let skip = (+req.query.page - 1) * limit;
+  Video
+    .find({
+      title: re
+    })
+    .where("cate", cate)
+    .sort({ view: -1 })
+    .limit(limit)
+    .skip(skip)
+    .exec(function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(data);
+      }
+    })
+});
+
 router.get("/index/:id", function (req, res) {
   Video.find({})
     .where("page", +req.params.id)

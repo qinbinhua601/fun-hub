@@ -44,21 +44,23 @@ let indexView = new Vue({
     },
     selected: localStorage.getItem("defaultCate")
       ? JSON.parse(localStorage.getItem("defaultCate"))
-      : 0
+      : 0,
+    searchedList: []
   },
   computed: {
     filteredList() {
-      var result = [];
-      this.list.forEach((item, index) => {
-        if (this.list[index].title.indexOf(this.searchingText) !== -1) {
-          item.searchedText = item.title.replace(this.searchingText, `<mark>${this.searchingText}</mark>`);
-          if (!this.searchingText) {
-            item.searchedText = item.title
-          }
-          result.push(item);
-        }
-      });
-      return result;
+      return this.searchingText ? this.searchedList : this.list;
+      // var result = [];
+      // this.list.forEach((item, index) => {
+      //   if (this.list[index].title.indexOf(this.searchingText) !== -1) {
+      //     item.searchedText = item.title.replace(this.searchingText, `<mark>${this.searchingText}</mark>`);
+      //     if (!this.searchingText) {
+      //       item.searchedText = item.title
+      //     }
+      //     result.push(item);
+      //   }
+      // });
+      // return result;
     },
     currentId() {
       return this.categories[+this.selected].currentId;
@@ -69,16 +71,34 @@ let indexView = new Vue({
       if (!this.hasMore) {
         return
       }
-
       this.categories[this.selected].currentId =
         this.categories[this.selected].currentId + 1;
       axios
-        .get("/index/" + this.currentId, {
+        .get("/index/search", {
           params: {
-            cate: this.selected
+            cate: this.selected,
+            page: this.currentId,
+            q: this.searchingText
           }
         })
         .then(({ status, data }) => {
+          if (this.searchingText) {
+            this.searchedList = this.searchedList.concat(
+              data.map(item => {
+                item.isFavorite = this.favoriteList.includes(item.aid);
+                item.searchedText = item.title.replace(this.searchingText, `<mark>${this.searchingText}</mark>`);
+                return item;
+              })
+            );
+            navView.videoCount = this.searchedList.length;
+            if (data.length) {
+              this.$refs.infiniteLoading.$emit("$InfiniteLoading:loaded");
+            } else {
+              this.$refs.infiniteLoading.$emit("$InfiniteLoading:complete");
+              this.hasMore = false
+            }
+            return
+          }
           if (data.length) {
             this.list = this.list.concat(
               data.map(item => {
@@ -118,7 +138,21 @@ let indexView = new Vue({
       localStorage.setItem("defaultCate", JSON.stringify(this.selected));
       this.hasMore = true;
       this.getMore();
-    }
+    },
+    onInputHandler() {}
   },
-  mounted() {}
+  mounted() {
+    this.onInputHandler = _.debounce(() => {
+      this.categories[this.selected].currentId = 0;
+      this.showDropdown = false;
+      this.$refs.infiniteLoading.$emit("$InfiniteLoading:reset");
+      this.hasMore = true;
+      if (this.searchingText) {
+        this.searchedList = [];
+        this.getMore()
+      } else {
+        this.list = [];
+      }
+    }, 300)
+  }
 });
