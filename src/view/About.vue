@@ -11,14 +11,14 @@
       .panel.panel-default.text-center
         .panel-heading Main Tools To Use
         .panel-body
-            ul.list-inline.text-left
+            ul.list-inline
               li(v-for="item in techs")
                 a(:href="item.link")
                   span.label.label-primary {{ item.text }}
       blockquote.blockquote-reverse
         p Regular people do regular things, but I am not regular.
         footer
-          | 2-time MVP of NBA&nbsp;
+          | 2-time NBA MVP &nbsp;
           cite(title="Stephen Curry") Stephen Curry
 </template>
 
@@ -43,6 +43,14 @@ export default {
         {
           text: 'superagent',
           link: 'https://github.com/visionmedia/superagent'
+        },
+        {
+          text: 'vue',
+          link: 'https://vuejs.org'
+        },
+        {
+          text: 'vue-router',
+          link: 'https://router.vuejs.org'
         }
       ]
     }

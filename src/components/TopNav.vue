@@ -44,3 +44,12 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+#bs-example-navbar-collapse-1
+  ul
+    li
+      cursor: pointer
+a.navbar-brand
+  cursor: pointer
+</style>
