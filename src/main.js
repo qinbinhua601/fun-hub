@@ -6,25 +6,14 @@ import Contact from './view/Contact.vue'
 import Favorite from './view/Favorite.vue'
 import Card from './components/Card.vue'
 import InfiniteLoading from 'vue-infinite-loading';
-import _ from 'lodash';
 import App from './App.vue';
+import _ from 'lodash'
 
 Vue.component("vue-infinite-loading", InfiniteLoading);
 Vue.component("card", Card);
 
 Vue.use(VueRouter)
 
-// 0. If using a module system (e.g. via vue-cli), import Vue and VueRouter and then call Vue.use(VueRouter).
-
-// 1. Define route components.
-// These can be imported from other files
-// const Foo = { template: '<div>foo</div>' }
-
-// 2. Define some routes
-// Each route should map to a component. The "component" can
-// either be an actual component constructor created via
-// Vue.extend(), or just a component options object.
-// We'll talk about nested routes later.
 const routes = [
   { path: '/index', component: Index },
   { path: '/about', component: About },
@@ -33,48 +22,13 @@ const routes = [
   { path: '/*', component: Index }
 ]
 
-// 3. Create the router instance and pass the `routes` option
-// You can pass in additional options here, but let's
-// keep it simple for now.
 const router = new VueRouter({
-  routes // short for routes: routes
+  routes
 })
 
 let eventHub = new Vue();
-window.eventHub = eventHub;
-// #top-nav view
-// let navView = new Vue({
-//   el: '#top-nav',
-//   name: 'top-nav',
-//   data: {
-//     showNav: false,
-//     videoCount: 0,
-//     links: [
-//       'favorite',
-//       'about',
-//       'contact'
-//     ]
-//   },
-//   created() {
-//     eventHub.$on('update-video-count', newVideoCount => {
-//       this.videoCount = newVideoCount;
-//     });
-//   },
-//   methods: {
-//     toLink(item) {
-//       window.app.$router.push(`/${item}`);
-//       this.showNav = false;
-//     }
-//   }
-// });
-// window.navView = navView;
 
-// 4. Create and mount the root instance.
-// Make sure to inject the router with the router option to make the
-// whole app router-aware.
-// const app = new Vue({
-//   router
-// }).$mount('#app')
+window.eventHub = eventHub;
 
 const app =new Vue({
   el: '#app',
@@ -84,3 +38,59 @@ const app =new Vue({
 
 window.app = app;
 // Now the app has started!
+
+
+// detecting if touch mobile device
+var touch =
+  'ontouchstart' in document.documentElement ||
+  navigator.maxTouchPoints > 0 ||
+  navigator.msMaxTouchPoints > 0;
+
+// for disabling the hover css effect
+if (!touch) {
+  document.body.setAttribute('class', 'pc');
+}
+
+document.body.onscroll = _.debounce(
+  () => {
+    let $toTop = document.getElementById('to-top');
+    if (document.body.scrollTop > 100) {
+      $toTop.style.display = 'block';
+    } else {
+      $toTop.style.display = 'none';
+    }
+  },
+  200,
+  {
+    leading: true
+  }
+);
+
+document.getElementById('to-top').onclick = function(e) {
+  e.stopPropagation();
+  this.style.display = 'none';
+  document.body.scrollTop = 0;
+};
+
+// prevent add to home screen app, A link to open by safari
+if ('standalone' in window.navigator && window.navigator.standalone) {
+  var noddy, remotes = false;
+  document.addEventListener(
+    'click',
+    function(event) {
+      noddy = event.target;
+      while (noddy.nodeName !== 'A' && noddy.nodeName !== 'HTML') {
+        noddy = noddy.parentNode;
+      }
+      if (
+        'href' in noddy &&
+        noddy.href.indexOf('http') !== -1 &&
+        (noddy.href.indexOf(document.location.host) !== -1 || remotes)
+      ) {
+        event.preventDefault();
+        document.location.href = noddy.href;
+      }
+    },
+    false
+  );
+}

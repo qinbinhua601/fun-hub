@@ -11,7 +11,7 @@ A hub for aggregating the tv series which I'm following :)
 
 ## Roadmap
 - [x] replace filter current list by searching directly from the db #1
-- [ ] modify the site to SPA (include the vue-router)
+- [x] modify the site to SPA (include the vue-router) #2
 - [ ] make the favorite page much more neater and cleaner
 - [ ] crawl the episode link(ep1, ep2, ep3...) if existed e.g. qq video's episode link list (save to the Video model)
 - [ ] save the user favorite to the server ?

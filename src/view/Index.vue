@@ -9,7 +9,7 @@
             ul.dropdown-menu(v-show="showDropdown")
               li(v-for="item in categories" @click="resetCate(item)")
                 a(href="#") {{ item.text }}
-          input.form-control(type="text" id="search" placeholder="Search" v-model="searchingText")
+          input.form-control(type="text" id="search" placeholder="Search" v-model="searchingText" @input="onInputHandler")
     - var col = 4
     .tv-list
       .row(v-for="i in Math.ceil(filteredList.length / #{col})")
