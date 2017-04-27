@@ -1,127 +1,127 @@
-@import "./placeholder"
-@import "./animations/fadeInRight"
-@import "./animations/fadeOutLeft"
-@import "./animations/bounceIn"
-@import "./animations/bounceOut"
-@import "./animations/rotateIn"
-@import "./animations/rotateOut"
-@import "./animations/zoomIn"
-@import "./animations/zoomOut"
-html, body
-  max-width: 100%
-  overflow-x: hidden
-  min-height: 400px
-body
-  padding-top: 70px
-  &.pc
-    .card > div .card-image span.glyphicon-heart:hover
-      color: lightgray
-      transform: scale(1.5)
-      &:before
-        content: "\e143"
-    .card > div .card-image span.glyphicon-heart-empty:hover
-      color: #e60b97
-      transform: scale(1.5)
-      &:before
-        content: "\e005"
-    #to-top:hover
-      transform: scale(1.3)
-      color: rgba(255, 0, 0, 1)
-#to-top
-  position: fixed
-  bottom: 15px
-  right: 15px
-  text-align: center
-  z-index: 1
-  span
-    font-size: 4em
-    color: rgba(255, 0, 0, .5)
-    transition: all .2s ease-in
-ul
-  list-style: none
-[v-cloak]
-  display: none
-.tv-list
-  padding: 0
-.fadeInRight
-  animation: fadeInRight .5s
-.fadeOutLeft
-  animation: fadeOutLeft .5s
-.bounceIn
-  animation: bounceIn .5s
-.bounceOut
-  animation: bounceOut .5s
-.rotateIn
-  animation: rotateIn .5s
-.rotateOut
-  animation: rotateOut .5s
-.zoomIn
-  animation: zoomIn .5s
-.zoomOut
-  animation: zoomOut .5s
+// @import "./placeholder"
+// @import "./animations/fadeInRight"
+// @import "./animations/fadeOutLeft"
+// @import "./animations/bounceIn"
+// @import "./animations/bounceOut"
+// @import "./animations/rotateIn"
+// @import "./animations/rotateOut"
+// @import "./animations/zoomIn"
+// @import "./animations/zoomOut"
+// html, body
+//   max-width: 100%
+//   overflow-x: hidden
+//   min-height: 400px
+// body
+//   padding-top: 70px
+//   &.pc
+//     .card > div .card-image span.glyphicon-heart:hover
+//       color: lightgray
+//       transform: scale(1.5)
+//       &:before
+//         content: "\e143"
+//     .card > div .card-image span.glyphicon-heart-empty:hover
+//       color: #e60b97
+//       transform: scale(1.5)
+//       &:before
+//         content: "\e005"
+//     #to-top:hover
+//       transform: scale(1.3)
+//       color: rgba(255, 0, 0, 1)
+// #to-top
+//   position: fixed
+//   bottom: 15px
+//   right: 15px
+//   text-align: center
+//   z-index: 1
+//   span
+//     font-size: 4em
+//     color: rgba(255, 0, 0, .5)
+//     transition: all .2s ease-in
+// ul
+//   list-style: none
+// [v-cloak]
+//   display: none
+// .tv-list
+//   padding: 0
+// .fadeInRight
+//   animation: fadeInRight .5s
+// .fadeOutLeft
+//   animation: fadeOutLeft .5s
+// .bounceIn
+//   animation: bounceIn .5s
+// .bounceOut
+//   animation: bounceOut .5s
+// .rotateIn
+//   animation: rotateIn .5s
+// .rotateOut
+//   animation: rotateOut .5s
+// .zoomIn
+//   animation: zoomIn .5s
+// .zoomOut
+//   animation: zoomOut .5s
 
-.card
-  & > div
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
-    box-sizing: border-box
-    border-radius: 2px
-    background-clip: padding-box
-    .card-image
-      position: relative
-      overflow: hidden
-      cursor: pointer
-      img
-        width: 100%
-        border-radius: 2px 2px 0 0
-        background-clip: padding-box
-        position: relative
-        z-index: -1
-        max-height: 400px
-      span.glyphicon-heart-empty, span.glyphicon-heart
-        position: absolute
-        top: 10px
-        left: 10px
-        font-size: 1.5em
-        color: lightgray
-        transition: all .3s linear
-      span.glyphicon-heart
-        color: #e60b97
-    .card-title
-      @extend  %forceOneLine
-    .card-content
-      border-radius: 0 0 2px 2px
-      background-clip: padding-box
-      box-sizing: border-box
-      p
-        margin: 0
-        color: inherit
-      span.card-title
-        line-height: 48px
-    .card-bottom
-      padding: 0 10px
+// .card
+//   & > div
+//     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+//     box-sizing: border-box
+//     border-radius: 2px
+//     background-clip: padding-box
+//     .card-image
+//       position: relative
+//       overflow: hidden
+//       cursor: pointer
+//       img
+//         width: 100%
+//         border-radius: 2px 2px 0 0
+//         background-clip: padding-box
+//         position: relative
+//         z-index: -1
+//         max-height: 400px
+//       span.glyphicon-heart-empty, span.glyphicon-heart
+//         position: absolute
+//         top: 10px
+//         left: 10px
+//         font-size: 1.5em
+//         color: lightgray
+//         transition: all .3s linear
+//       span.glyphicon-heart
+//         color: #e60b97
+//     .card-title
+//       @extend  %forceOneLine
+//     .card-content
+//       border-radius: 0 0 2px 2px
+//       background-clip: padding-box
+//       box-sizing: border-box
+//       p
+//         margin: 0
+//         color: inherit
+//       span.card-title
+//         line-height: 48px
+//     .card-bottom
+//       padding: 0 10px
 
-ul.week-list
-  & > li
-    margin: 10px 0
-    font-size: 1.2em
-    ul
-      border-top: 1px solid grey
-      margin-top: 5px
-      padding-left: 0
-      font-size: initial
-      overflow: hidden
-      .card
-        margin: 10px 0
+// ul.week-list
+//   & > li
+//     margin: 10px 0
+//     font-size: 1.2em
+//     ul
+//       border-top: 1px solid grey
+//       margin-top: 5px
+//       padding-left: 0
+//       font-size: initial
+//       overflow: hidden
+//       .card
+//         margin: 10px 0
 
-.form-inline
-  margin-bottom: 20px
-mark
-  background-color: #ff0
-#cp-about
-  .author
-    img
-      width: 80px
-      height: 80px
-  ul
-    li
-      margin-bottom: 5px
+// .form-inline
+//   margin-bottom: 20px
+// mark
+//   background-color: #ff0
+// #cp-about
+//   .author
+//     img
+//       width: 80px
+//       height: 80px
+//   ul
+//     li
+//       margin-bottom: 5px

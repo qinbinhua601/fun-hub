@@ -2,15 +2,15 @@ extends layout
 
 block content
 
-  #app
-    ul.week-list.container(v-cloak v-if="list.length")
-      li(v-for="(day, index) of weekDays") {{ weekList[index] }}
-        ul
-          card.col-md-3(
-            v-for="(item, x) of day",
-            @on-card-remove-from-favorite="removeFromWeekArray(item, index)",
-            :item="item",
-            :key="item.aid"
-          )
-    .no-video-tip.text-center(v-else) no favorite video available
-  script(src="/js/favorite.js")
+  //- #app
+  //-   ul.week-list.container(v-cloak v-if="list.length")
+  //-     li(v-for="(day, index) of weekDays") {{ weekList[index] }}
+  //-       ul
+  //-         card.col-md-3(
+  //-           v-for="(item, x) of day",
+  //-           @on-card-remove-from-favorite="removeFromWeekArray(item, index)",
+  //-           :item="item",
+  //-           :key="item.aid"
+  //-         )
+  //-   .no-video-tip.text-center(v-else) no favorite video available
+  //- script(src="/js/favorite.js")

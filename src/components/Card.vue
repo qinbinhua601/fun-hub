@@ -1,23 +1,5 @@
-import Vue from "Vue";
-let eventHub = new Vue();
-
-// #top-nav view
-let navView = new Vue({
-  el: '#top-nav',
-  name: 'top-nav',
-  data: {
-    showNav: false,
-    videoCount: 0
-  },
-  created() {
-    eventHub.$on('update-video-count', newVideoCount => {
-      this.videoCount = newVideoCount;
-    });
-  }
-});
-window.navView = navView;
-// define card component
-Vue.component('card', {
+<script>
+export default {
   name: 'card',
   template: `
     <transition
@@ -109,59 +91,48 @@ Vue.component('card', {
             : this.item.view;
     }
   }
-});
-
-// detecting if touch mobile device
-var touch =
-  'ontouchstart' in document.documentElement ||
-  navigator.maxTouchPoints > 0 ||
-  navigator.msMaxTouchPoints > 0;
-
-// for disabling the hover css effect
-if (!touch) {
-  document.body.setAttribute('class', 'pc');
 }
+</script>
 
-document.body.onscroll = _.debounce(
-  () => {
-    let $toTop = document.getElementById('to-top');
-    if (document.body.scrollTop > 100) {
-      $toTop.style.display = 'block';
-    } else {
-      $toTop.style.display = 'none';
-    }
-  },
-  200,
-  {
-    leading: true
-  }
-);
-
-document.getElementById('to-top').onclick = function(e) {
-  e.stopPropagation();
-  this.style.display = 'none';
-  document.body.scrollTop = 0;
-};
-
-// prevent add to home screen app, A link to open by safari
-if ('standalone' in window.navigator && window.navigator.standalone) {
-  var noddy, remotes = false;
-  document.addEventListener(
-    'click',
-    function(event) {
-      noddy = event.target;
-      while (noddy.nodeName !== 'A' && noddy.nodeName !== 'HTML') {
-        noddy = noddy.parentNode;
-      }
-      if (
-        'href' in noddy &&
-        noddy.href.indexOf('http') !== -1 &&
-        (noddy.href.indexOf(document.location.host) !== -1 || remotes)
-      ) {
-        event.preventDefault();
-        document.location.href = noddy.href;
-      }
-    },
-    false
-  );
-}
+<style lang="sass">
+@import "../sass/placeholder"
+.card
+  & > div
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+    box-sizing: border-box
+    border-radius: 2px
+    background-clip: padding-box
+    .card-image
+      position: relative
+      overflow: hidden
+      cursor: pointer
+      img
+        width: 100%
+        border-radius: 2px 2px 0 0
+        background-clip: padding-box
+        position: relative
+        z-index: -1
+        max-height: 400px
+      span.glyphicon-heart-empty, span.glyphicon-heart
+        position: absolute
+        top: 10px
+        left: 10px
+        font-size: 1.5em
+        color: lightgray
+        transition: all .3s linear
+      span.glyphicon-heart
+        color: #e60b97
+    .card-title
+      @extend  %forceOneLine
+    .card-content
+      border-radius: 0 0 2px 2px
+      background-clip: padding-box
+      box-sizing: border-box
+      p
+        margin: 0
+        color: inherit
+      span.card-title
+        line-height: 48px
+    .card-bottom
+      padding: 0 10px
+</style>

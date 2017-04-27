@@ -1,36 +1,36 @@
 extends layout
 
 block content
-  #app.container(v-cloak)
-    .container
-      .row
-        .input-group.col-md-3.col-sm-12
-          .input-group-btn(:class="{ open: showDropdown }")
-            button(type="button" class="btn btn-default dropdown-toggle" @click="showDropdown = !showDropdown") {{ categories[selected].text }}
-              span.caret(style="margin-left: 5px;")
-            ul.dropdown-menu(v-show="showDropdown")
-              li(v-for="item in categories" @click="resetCate(item)")
-                a(href="#") {{ item.text }}
-          input.form-control(type="text" id="search" placeholder="Search" v-model="searchingText" @input="onInputHandler")
-    - var col = 4
-    .tv-list
-      .row(v-for="i in Math.ceil(filteredList.length / #{col})")
-        card.col-sm-6(
-          class="col-md-#{12/col}",
-          v-for="(item, index) in filteredList.slice((i - 1) * #{col}, #{col} * i)",
-          :item="item",
-          :key="item.aid",
-          :index="index",
-          :row="i",
-          @on-card-add-to-favorite="addToFavorite",
-          @on-card-remove-from-favorite="removeFromFavorite"
-        )
-        .clearfix.visible-md
-      vue-infinite-loading(
-        :on-infinite="getMore",
-        ref="infiniteLoading",
-        spinner="waveDots"
-      )
-        span(slot="no-more") No more
-      button.btn.btn-default.btn-block(@click="getMore" v-if="hasMore") Get More
-  script(src="/js/index.js")
+  //- #app.container(v-cloak)
+  //-   .container
+  //-     .row
+  //-       .input-group.col-md-3.col-sm-12
+  //-         .input-group-btn(:class="{ open: showDropdown }")
+  //-           button(type="button" class="btn btn-default dropdown-toggle" @click="showDropdown = !showDropdown") {{ categories[selected].text }}
+  //-             span.caret(style="margin-left: 5px;")
+  //-           ul.dropdown-menu(v-show="showDropdown")
+  //-             li(v-for="item in categories" @click="resetCate(item)")
+  //-               a(href="#") {{ item.text }}
+  //-         input.form-control(type="text" id="search" placeholder="Search" v-model="searchingText")
+  //-   - var col = 4
+  //-   .tv-list
+  //-     .row(v-for="i in Math.ceil(filteredList.length / #{col})")
+  //-       card.col-sm-6(
+  //-         class="col-md-#{12/col}",
+  //-         v-for="(item, index) in filteredList.slice((i - 1) * #{col}, #{col} * i)",
+  //-         :item="item",
+  //-         :key="item.aid",
+  //-         :index="index",
+  //-         :row="i",
+  //-         @on-card-add-to-favorite="addToFavorite",
+  //-         @on-card-remove-from-favorite="removeFromFavorite"
+  //-       )
+  //-       .clearfix.visible-md
+  //-     vue-infinite-loading(
+  //-       :on-infinite="getMore",
+  //-       ref="infiniteLoading",
+  //-       spinner="waveDots"
+  //-     )
+  //-       span(slot="no-more") No more
+  //-     button.btn.btn-default.btn-block(@click="getMore" v-if="hasMore") Get More
+  //- script(src="/js/index.js")
