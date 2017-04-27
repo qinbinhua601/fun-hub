@@ -1,6 +1,6 @@
 <template lang="jade">
   #cp-about
-    .container(class="col-md-4")
+    .container(class="col-md-8 col-md-offset-2")
       .panel.panel-default.text-center
         .panel-heading Developer Info
         .panel-body
