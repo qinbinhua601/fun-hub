@@ -21,7 +21,7 @@ A hub for aggregating the tv series which I'm following :)
 ```
   npm run mongod
   npm run dev
-  gulp
+  npm run dev2
 
 ```
 
