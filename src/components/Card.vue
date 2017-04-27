@@ -1,4 +1,20 @@
 <script>
+const formatDate = (time) => {
+  let date = new Date(time);
+  let y = date.getFullYear();
+  let m = date.getMonth() + 1;
+  m = m < 10 ? '0' + m : m;
+  let d = date.getDate();
+  d = d < 10 ? '0' + d : d;
+  let h = date.getHours();
+  h = h < 10 ? '0' + h : h;
+  let min = date.getMinutes();
+  min = min < 10 ? '0' + min : min;
+  let s = date.getSeconds();
+  s = s < 10 ? '0' + s : s;
+  return `${y}-${m}-${d} ${h}:${min}:${s}`;
+}
+
 export default {
   name: 'card',
   template: `
@@ -65,7 +81,8 @@ export default {
   },
   computed: {
     getDate() {
-      return moment(this.item.updated).format('YYYY-MM-DD HH:mm:ss');
+      // return moment(this.item.updated).format('YYYY-MM-DD HH:mm:ss');
+      return formatDate(this.item.updated);
     },
     enterActiveClass() {
       return this.crazyMode

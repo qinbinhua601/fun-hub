@@ -24,6 +24,7 @@
     "vue": "^2.3.0"
   },
   "devDependencies": {
+    "axios": "^0.16.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.0.0",
     "babel-polyfill": "^6.23.0",

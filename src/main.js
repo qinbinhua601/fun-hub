@@ -7,8 +7,9 @@ import Favorite from './view/Favorite.vue'
 import Card from './components/Card.vue'
 import InfiniteLoading from 'vue-infinite-loading';
 import App from './App.vue';
-import _ from 'lodash'
-
+import _ from 'lodash';
+import axios from 'axios';
+window.axios = axios;
 Vue.component("vue-infinite-loading", InfiniteLoading);
 Vue.component("card", Card);
 
