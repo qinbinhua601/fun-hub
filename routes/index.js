@@ -32,7 +32,7 @@ router.get("/index/search", function (req, res, next) {
       title: re
     })
     .where("cate", cate)
-    .sort({ view: -1 })
+    // .sort({ view: -1 })
     .limit(limit)
     .skip(skip)
     .exec(function (err, data) {
