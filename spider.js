@@ -26,7 +26,7 @@ var {
 
 var cate = argv[0];
 var currentPage = 1;
-var maxPage = -1;
+var maxPage = 1;
 var stack = [];
 var finishedStack = [];
 var timer = null;
@@ -128,7 +128,7 @@ function getData() {
 Video.remove({cate}, function(err) {
   console.log(new Date())
   timer = setInterval(() => {
-      if(finishedStack.length === maxPage) {
+      if(finishedStack.length >= maxPage) {
         clearInterval(timer)
         console.log(new Date())
         process.exit()
