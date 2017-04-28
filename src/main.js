@@ -7,9 +7,15 @@ import Favorite from './view/Favorite.vue'
 import Card from './components/Card.vue'
 import InfiniteLoading from 'vue-infinite-loading';
 import App from './App.vue';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
+import random from 'lodash/random';
 import axios from 'axios';
 window.axios = axios;
+
+window._ = {};
+window._.debounce = debounce;
+window._.random = random
+
 Vue.component("vue-infinite-loading", InfiniteLoading);
 Vue.component("card", Card);
 
@@ -62,9 +68,7 @@ document.body.onscroll = _.debounce(
     }
   },
   200,
-  {
-    leading: true
-  }
+  true
 );
 
 document.getElementById('to-top').onclick = function(e) {
