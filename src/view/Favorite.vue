@@ -46,7 +46,7 @@ export default {
             this.list = this.list.concat(
               data.map(item => {
                 item.isFavorite = this.favoriteList.includes(item.aid);
-                this.weekDays[(moment(item.updated).day() + 6) % 7].push(item);
+                this.weekDays[(new Date(item.updated).getDay() + 6) % 7].push(item);
                 return item;
               })
             );
