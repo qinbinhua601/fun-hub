@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Index from './view/Index.vue'
-import About from './view/About.vue'
-import Contact from './view/Contact.vue'
-import Favorite from './view/Favorite.vue'
-import Card from './components/Card.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Index from './view/Index.vue';
+import About from './view/About.vue';
+import Contact from './view/Contact.vue';
+import Favorite from './view/Favorite.vue';
+import Card from './components/Card.vue';
 import InfiniteLoading from 'vue-infinite-loading';
 import App from './App.vue';
 import debounce from 'lodash/debounce';
@@ -14,12 +14,12 @@ window.axios = axios;
 
 window._ = {};
 window._.debounce = debounce;
-window._.random = random
+window._.random = random;
 
-Vue.component("vue-infinite-loading", InfiniteLoading);
-Vue.component("card", Card);
+Vue.component('vue-infinite-loading', InfiniteLoading);
+Vue.component('card', Card);
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   { path: '/index', component: Index },
@@ -27,25 +27,24 @@ const routes = [
   { path: '/contact', component: Contact },
   { path: '/favorite', component: Favorite },
   { path: '/*', component: Index }
-]
+];
 
 const router = new VueRouter({
   routes
-})
+});
 
 let eventHub = new Vue();
 
 window.eventHub = eventHub;
 
-const app =new Vue({
+const app = new Vue({
   el: '#app',
   router,
   render: h => h(App)
-})
+});
 
 window.app = app;
 // Now the app has started!
-
 
 // detecting if touch mobile device
 var touch =
