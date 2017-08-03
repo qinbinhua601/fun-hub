@@ -27,7 +27,7 @@ export default {
         <div>
           <div class="card-image">
             <a :href="item.url" target="_blank">
-              <img :src="item.img" class="img-responsive" />
+              <img :src="item.img" class="img-responsive" onerror="this.src = '/img/default.jpg'"/>
             </a>
             <span :class="[item.isFavorite ? 'glyphicon-heart' : 'glyphicon-heart-empty']" @click.stop="onFavoriteClick(item)" class="glyphicon"></span>
           </div>
